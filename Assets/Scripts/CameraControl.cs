@@ -10,14 +10,17 @@ public class CameraControl : MonoBehaviour
     private float mouseY;
     public Camera getCamera;
 
-    public Vector3 offset = new Vector3(0, 1.0f, -1.0f);
+    public Vector3 offset = new Vector3(0, 1f, -1f);
     
-    public float currentZoom = 7.0f;
+    public float currentZoom = 30.0f;
   
-    public float minZoom = 5.0f;
-    public float maxZoom = 10.0f;
+    private float minZoom = 20.0f;
+    private float maxZoom = 60.0f;
+
+    private float scrollSpeed = 2.0f;
     
-    void CamMove() {
+    void CamMove() 
+    {
         // 카메라 회전
         if (Input.GetMouseButton(1))
         {
@@ -33,9 +36,13 @@ public class CameraControl : MonoBehaviour
         // 카메라 줌
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
-            currentZoom -= Input.GetAxis("Mouse ScrollWheel");
-            currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
-            getCamera.transform.position = getCamera.transform.position + offset * currentZoom;
+            currentZoom = Input.GetAxis("Mouse ScrollWheel");
+            if(getCamera.fieldOfView >= 20.0f && Input.GetAxis("Mouse ScrollWheel") <= 0) getCamera.fieldOfView += currentZoom + scrollSpeed;
+            else if(getCamera.fieldOfView <= 60.0f && Input.GetAxis("Mouse ScrollWheel") >= 0) getCamera.fieldOfView -= currentZoom + scrollSpeed;
+
+            if (getCamera.fieldOfView <= 20.0f) getCamera.fieldOfView = 20.0f;
+            else if (getCamera.fieldOfView >= 60.0f) getCamera.fieldOfView = 60.0f;
+            
             getCamera.transform.LookAt(centralAxis.transform);
         }
     }
