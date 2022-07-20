@@ -5,17 +5,25 @@ using UnityEngine;
 public class PointMove : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Transform PointTransform;
-    private Transform _transform;
+    public Transform centralAxis;
+    
+    public Vector3 Point = new Vector3(1.0f, 1.0f, 1.0f);
     void Start()
     {
-        PointTransform = GameObject.Find("GetObject").GetComponent<Transform>();
-        _transform = GetComponent<Transform>();
+        centralAxis = GameObject.Find("Ground").GetComponent<Transform>();
+        transform.position = Point;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _transform.transform.position = PointTransform.transform.position;
+        if (Input.GetKeyDown("q"))
+        {
+            transform.RotateAround(centralAxis.position, Vector3.up, 90.0f);
+        }
+        if (Input.GetKeyDown("e"))
+        {
+            transform.RotateAround(centralAxis.position, Vector3.up, -90.0f);
+        }
     }
 }

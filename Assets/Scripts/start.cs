@@ -8,6 +8,7 @@ public class start : MonoBehaviour
     public Camera startCamera;
     void Start()
     {
+        startCamera = GetComponent<Camera>();
     }
 
     // Update is called once per frame
