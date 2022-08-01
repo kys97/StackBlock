@@ -7,21 +7,33 @@ public class CameraControl : MonoBehaviour
     public Transform centralAxis;
     public Transform cameraPoint;
 
-    public Vector3 Point = new Vector3(1.0f, 1.0f, 1.0f);
-    
+    private PointMove pointMove;
+
+    public Vector3 Point = new Vector3(1.0f, 1.0f, 0.7f);
     void CamMove()
     {
-        transform.position = Vector3.Slerp(transform.position, cameraPoint.position, Time.deltaTime * 2);
-        transform.LookAt(centralAxis);
+        if (cameraPoint.position != transform.position && pointMove.dirc == true)
+        {
+            transform.RotateAround(centralAxis.position, Vector3.up, 1.0f);
+            transform.LookAt(centralAxis);
+        }
+        else if (cameraPoint.position != transform.position && pointMove.dirc == false)
+        {
+            transform.RotateAround(centralAxis.position, Vector3.up, -1.0f);
+            transform.LookAt(centralAxis);
+        }
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        centralAxis = GameObject.Find("Ground").GetComponent<Transform>();
-        cameraPoint = GameObject.Find("Point").GetComponent<Transform>();
+        centralAxis = GameObject.Find("centralAxis").GetComponent<Transform>();
+        cameraPoint = GameObject.Find("cameraPoint").GetComponent<Transform>();
+        pointMove = GameObject.Find("cameraPoint").GetComponent<PointMove>();
         transform.position = Point;
         transform.LookAt(centralAxis);
+        
     }
         
     // Update is called once per frame

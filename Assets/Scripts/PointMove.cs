@@ -7,7 +7,10 @@ public class PointMove : MonoBehaviour
     // Start is called before the first frame update
     public Transform centralAxis;
     
-    public Vector3 Point = new Vector3(1.0f, 1.0f, 1.0f);
+    public Vector3 Point = new Vector3(1.0f, 1.0f, 0.7f);
+
+    public bool dirc = true;
+
     void Start()
     {
         centralAxis = GameObject.Find("Ground").GetComponent<Transform>();
@@ -20,10 +23,12 @@ public class PointMove : MonoBehaviour
         if (Input.GetKeyDown("q"))
         {
             transform.RotateAround(centralAxis.position, Vector3.up, 90.0f);
+            dirc = true;
         }
         if (Input.GetKeyDown("e"))
         {
             transform.RotateAround(centralAxis.position, Vector3.up, -90.0f);
+            dirc = false;
         }
     }
 }
