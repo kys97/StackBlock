@@ -9,7 +9,7 @@ public class CameraControl : MonoBehaviour
 
     private PointMove pointMove;
 
-    public Vector3 Point = new Vector3(1.0f, 1.0f, 0.7f);
+    public Vector3 Point = new Vector3(2.0f, 2.0f, 2.0f);
     void CamMove()
     {
         if (cameraPoint.position != transform.position && pointMove.dirc == true)
