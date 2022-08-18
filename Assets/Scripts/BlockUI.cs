@@ -43,14 +43,17 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
     public void OnDrag(PointerEventData eventData)
     {
         move_temp.transform.position = eventData.position;
+        if (Vector2.Distance(GameManager.Instance.parts_pos[ui_id - 1], move_temp.transform.position) <= GameManager.Instance.block_distance)
+        {
+
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (Vector2.Distance(GameManager.Instance.block_pos[ui_id - 1], move_temp.transform.position) <= GameManager.Instance.block_distance[ui_id - 1])
+        if (Vector2.Distance(GameManager.Instance.parts_pos[ui_id - 1], move_temp.transform.position) <= GameManager.Instance.block_distance)
         {
-            Debug.Log("½º³À");
-            GameManager.Instance.block_parts[ui_id - 1].SetActive(true);
+            GameManager.Instance.block_parts[ui_id - 1].transform.Find("object").gameObject.SetActive(true);
             Destroy(move_temp.gameObject);
             move_temp = null;
             Destroy(gameObject);
