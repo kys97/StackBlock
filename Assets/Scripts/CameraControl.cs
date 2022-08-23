@@ -25,32 +25,16 @@ public class CameraControl : MonoBehaviour
             transform.RotateAround(Point, Vector3.down, 1.0f);
         }
     }
-    /*상호 코드
-    void CamMove()
-    {
-        if (cameraPoint.position != transform.position && pointMove.dirc == true)
-        {
-            transform.RotateAround(centralAxis.position, Vector3.up, 1.0f);
-            transform.LookAt(centralAxis);
-        }
-        else if (cameraPoint.position != transform.position && pointMove.dirc == false)
-        {
-            transform.RotateAround(centralAxis.position, Vector3.up, -1.0f);
-            transform.LookAt(centralAxis);
-        }
-     */
 
     // Start is called before the first frame update
     void Start()
     {
+        //Point = transform.position;
+
+        //cameraPoint = GameObject.Find("cameraPoint").GetComponent<Transform>();
         pointMove = cameraPoint.GetComponent<PointMove>();
-        /*상호 코드
-        centralAxis = GameObject.Find("centralAxis").GetComponent<Transform>();
-        cameraPoint = GameObject.Find("cameraPoint").GetComponent<Transform>();
-        pointMove = GameObject.Find("cameraPoint").GetComponent<PointMove>();
-        transform.position = Point;
-        transform.LookAt(centralAxis);
-        */
+        //transform.position = Point;
+        
     }
         
     // Update is called once per frame
