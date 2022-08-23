@@ -11,6 +11,7 @@ public class PointMove : MonoBehaviour
 
     void Start()
     {
+        //현재 Main카메라 위치로 위치 옮기기
         transform.position = Camera.main.transform.position;
     }
 
@@ -19,6 +20,7 @@ public class PointMove : MonoBehaviour
     {
         if (Input.GetKeyDown("q"))
         {
+            //Point에 Ground 위치 가져오기
             Point = GameManager.Instance.ground.transform.position;
             Point.y = transform.position.y;
             transform.RotateAround(Point, Vector3.up, 90.0f);
@@ -27,6 +29,7 @@ public class PointMove : MonoBehaviour
         }
         if (Input.GetKeyDown("e"))
         {
+            //Point에 Ground 위치 가져오기
             Point = GameManager.Instance.ground.transform.position;
             Point.y = transform.position.y;
             transform.RotateAround(Point, Vector3.down, 90.0f);
@@ -52,4 +55,5 @@ public class PointMove : MonoBehaviour
         dirc = false;
         dir = 2;
     }
+
 }
