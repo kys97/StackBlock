@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 { 
-    public Transform centralAxis;
     public GameObject cameraPoint;
-
     private PointMove pointMove;
 
     public Vector3 Point;
@@ -33,11 +31,9 @@ public class CameraControl : MonoBehaviour
     {
         //Point = transform.position;
 
-        //centralAxis = GameObject.Find("centralAxis").GetComponent<Transform>();
         //cameraPoint = GameObject.Find("cameraPoint").GetComponent<Transform>();
         pointMove = cameraPoint.GetComponent<PointMove>();
         //transform.position = Point;
-        //transform.LookAt(centralAxis);
         
     }
         

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PointMove : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public Transform centralAxis;
-    
     public Vector3 Point;
 
     public bool dirc = true;
@@ -14,10 +11,7 @@ public class PointMove : MonoBehaviour
 
     void Start()
     {
-        //centralAxis = GameObject.Find("Ground").GetComponent<Transform>();
-        //centralAxis = GameManager.Instance.ground.transform;
         transform.position = Camera.main.transform.position;
-        
     }
 
     // Update is called once per frame
