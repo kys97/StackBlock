@@ -5,10 +5,28 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    //스테이지?맵? 변수
-    public int stage = 1;
-    //스테이지?맵? 블록 변수
-    public GameObject block;
+    enum Topic
+    {
+        Weather,
+        Structure
+    }
+    enum Weather
+    {
+        Spring,
+        Summer,
+        Desert,
+        Fall,
+        Winter
+    }
+    enum Dir
+    {
+        F,
+        R,
+        B,
+        L
+    }
+
+
     //선택된 블록 변수
     public int drag_block_id = 0;
     //카메라 방향 변수
