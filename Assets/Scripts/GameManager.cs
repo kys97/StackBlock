@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         L
     }
 
-
+    public int stage;
     //선택된 블록 변수
     public int drag_block_id = 0;
     //카메라 방향 변수
@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
 
 
         //땅 생성
-        ground = Instantiate<GameObject>(Resources.Load<GameObject>("Ground/" + sprite_path));
+        ground = Instantiate<GameObject>(Resources.Load<GameObject>("Ground/Weather/Spring"));
         ground.transform.SetParent(block_parent.transform, false);
 
         //블록 생성
