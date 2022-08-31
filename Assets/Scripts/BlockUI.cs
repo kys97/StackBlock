@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler ,IDropHandler
 {
-    [SerializeField]private int ui_id;
+    private string key;
     GameObject move_temp;
-    private Vector2 pos;
+    bool complete = false;
 
     // Start is called before the first frame update
     void Start()
     {
         //cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        
+        key = name.Substring(0, name.Length - 2);
     }
 
     // Update is called once per frame
@@ -28,14 +28,14 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 
     }
 
-    public void SetUiId(int i) { ui_id = i; }
-
     public void OnBeginDrag(PointerEventData eventData)
     {
-        GameManager.Instance.drag_block_id = ui_id;
+        //µå·¡±× ÁßÀÎ ÆÛÁñ key
+        GameManager.Instance.drag_block_id = key;
 
+        //moveImage »õ·Î »ý¼º
         GameManager.Instance.move_canvas.SetActive(true);
-        GameManager.Instance.move_ui_prefab.GetComponent<Image>().sprite = GameManager.Instance.block_parts_image[ui_id - 1];
+        GameManager.Instance.move_ui_prefab.GetComponent<Image>().sprite = GameManager.Instance.Puzzle[key].ui;
         move_temp = Instantiate<GameObject>(GameManager.Instance.move_ui_prefab, GameManager.Instance.move_canvas.transform);
         move_temp.transform.position = transform.position;
     }
@@ -43,17 +43,23 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
     public void OnDrag(PointerEventData eventData)
     {
         move_temp.transform.position = eventData.position;
-        if (Vector2.Distance(GameManager.Instance.parts_pos[ui_id - 1], move_temp.transform.position) <= GameManager.Instance.block_distance)
+        if (Vector2.Distance(GameManager.Instance.Puzzle[key].position, move_temp.transform.position) <= GameManager.Instance.block_distance)
         {
-
+            //ºþÂ¦ÀÓ
+            complete = true;
+        }
+        else
+        {
+            //ºþÂ¦ÀÓ ÄÚ·çÆ¾ ¸ØÃã
+            complete = false;
         }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (Vector2.Distance(GameManager.Instance.parts_pos[ui_id - 1], move_temp.transform.position) <= GameManager.Instance.block_distance)
+        if (complete)
         {
-            GameManager.Instance.block_parts[ui_id - 1].transform.Find("object").gameObject.SetActive(true);
+            GameManager.Instance.Puzzle[key].block.SetActive(true);
             Destroy(move_temp.gameObject);
             move_temp = null;
             Destroy(gameObject);
