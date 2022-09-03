@@ -202,12 +202,9 @@ MonoBehaviour:
   camera_dir: 0
   block_distance: 50
   start: 0
-  click_ui_prefab: {fileID: 6202515390909883684, guid: de079374b42753f469a333e93acf15f7, type: 3}
-  move_ui_prefab: {fileID: 8013501848679332611, guid: 554c3348852b5ae438bd8c46463a30f2, type: 3}
+  click_ui_prefab: {fileID: 1844028201494094746, guid: de079374b42753f469a333e93acf15f7, type: 3}
   contents: {fileID: 152536303}
   move_canvas: {fileID: 257336808}
-  test_text: {fileID: 8006830188144015218, guid: 66a23ba8f6110f343b91705620a2f1be, type: 3}
-  canvas: {fileID: 2087365064}
   ui_script: {fileID: 11500000, guid: 55186cab5f9b88d419490f85b72a49f3, type: 3}
   surf_script: {fileID: 11500000, guid: 99d97a6617d3c894da4fa0f17dd47982, type: 3}
   obj_script: {fileID: 11500000, guid: de018d598dd90f04cb5694748ed6f864, type: 3}
@@ -335,7 +332,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &257336809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1163,7 +1160,7 @@ GameObject:
   - component: {fileID: 2139622683}
   - component: {fileID: 2139622682}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

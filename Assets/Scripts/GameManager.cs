@@ -7,11 +7,11 @@ public class GameManager : MonoBehaviour
 {
     enum Topic { Spring, Summer,Desert, Fall, Winter, Bigben, Egypt, OperaHouse, TowerBridge }
 
-    public struct Block
+    public class Block
     {
         public GameObject block, surface;
         public Sprite ui;
-        public Vector2 position;
+        public Vector2 pos;
         public int dir;
         public bool complete;
         
@@ -20,12 +20,12 @@ public class GameManager : MonoBehaviour
             block = b;
             surface = s;
             ui = u;
-            position = p;
+            pos = p;
             dir = d;
             complete = c;
         }
 
-        public void Position(Vector2 v) { position = v; }
+        public void Position(Vector2 v) { pos = v; }
         public void Complete(bool c) { complete = c; }
     }
     public Dictionary<string,Block> Puzzle = new Dictionary<string, Block>();
@@ -45,12 +45,9 @@ public class GameManager : MonoBehaviour
 
     //프리펩 생성 변수
     public GameObject click_ui_prefab;
-    public GameObject move_ui_prefab;
     public GameObject contents;
     public GameObject move_canvas;
-
-    public GameObject test_text;
-    public GameObject canvas;
+    //public GameObject canvas;
 
     [SerializeField] private Object ui_script;
     [SerializeField] private Object surf_script;
@@ -88,10 +85,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //click_ui_prefab = Resources.Load<GameObject>("ClickImage");
-        //move_ui_prefab = Resources.Load<GameObject>("MoveImage");
-        move_canvas.SetActive(false);
-
         //test
         stage = Topic.Summer;
         StartPuzzle();
@@ -123,10 +116,7 @@ public class GameManager : MonoBehaviour
         {
             if(!(p.Value.complete))
                 if (p.Value.dir == camera_dir)
-                {
                     p.Value.Position(Camera.main.WorldToScreenPoint(p.Value.surface.transform.position));
-                    Debug.Log(p.Key + " 화면 위치 : " + p.Value.position);
-                }
                 else
                     p.Value.Position(new Vector2(-3000, -3000));
             
