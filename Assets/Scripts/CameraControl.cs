@@ -8,39 +8,38 @@ public class CameraControl : MonoBehaviour
     private PointMove pointMove;
 
     public Vector3 Point;
-    public float cam_move_speed;
 
-    void CamMove()
-    {
-        if (cameraPoint.transform.position != transform.position && pointMove.dir == 1)
-        {
-            Point = GameManager.Instance.ground.transform.position;
-            Point.y = transform.position.y;
-            transform.RotateAround(Point, Vector3.up, 1.0f);
-        }
-        else if (cameraPoint.transform.position != transform.position && pointMove.dir == 2)
-        {
-            Point = GameManager.Instance.ground.transform.position;
-            Point.y = transform.position.y;
-            transform.RotateAround(Point, Vector3.down, 1.0f);
-        }
-    }
 
     // Start is called before the first frame update
     void Start()
     {
-        //Point = transform.position;
-
-        //cameraPoint = GameObject.Find("cameraPoint").GetComponent<Transform>();
         pointMove = cameraPoint.GetComponent<PointMove>();
-        //transform.position = Point;
-        
     }
         
     // Update is called once per frame
     void Update()
     {
-        CamMove();
+        if(!(pointMove.cam_moved))
+            CamMove();
+    }
+
+    void CamMove()
+    {
+        //GameManager.Instance.block_parent.transform.RotateAround();
+        float next = cameraPoint.transform.rotation.y;
+        float obj = GameManager.Instance.block_parent.transform.rotation.y;
+        if (cameraPoint.transform.position != transform.position)
+        {
+            Point = GameManager.Instance.ground.transform.position;
+            Point.y = transform.position.y;
+            transform.RotateAround(Point, pointMove.dir, 1.0f);
+        }
+        else
+        {
+            pointMove.cam_moved = true;
+            Debug.Log("카메라 움직임 끝남");
+            GameManager.Instance.Cal_Pos();
+        }
     }
 }
 

@@ -8,25 +8,9 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 {
     private string key;
     GameObject move_temp;
-    bool complete = false;
+    private bool complete = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        key = name.Substring(0, name.Length - 2);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void BlokUiClick()
-    {
-
-    }
+    public void SetKey(string n) { key = n; }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -43,6 +27,7 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
     public void OnDrag(PointerEventData eventData)
     {
         move_temp.transform.position = eventData.position;
+        Debug.Log(Vector2.Distance(GameManager.Instance.Puzzle[key].position, move_temp.transform.position));
         if (Vector2.Distance(GameManager.Instance.Puzzle[key].position, move_temp.transform.position) <= GameManager.Instance.block_distance)
         {
             //ºþÂ¦ÀÓ

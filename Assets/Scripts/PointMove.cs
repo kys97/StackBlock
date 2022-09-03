@@ -6,8 +6,8 @@ public class PointMove : MonoBehaviour
 {
     public Vector3 Point;
 
-    public bool dirc = true;
-    public int dir = 0;
+    public bool cam_moved = true;
+    public Vector3 dir;
 
     void Start()
     {
@@ -19,37 +19,32 @@ public class PointMove : MonoBehaviour
     {
         if (Input.GetKeyDown("q"))
         {
-            Point = GameManager.Instance.ground.transform.position;
-            Point.y = transform.position.y;
-            transform.RotateAround(Point, Vector3.up, 90.0f);
-            dir = 1;
-            dirc = true;
+            Left();
         }
         if (Input.GetKeyDown("e"))
         {
-            Point = GameManager.Instance.ground.transform.position;
-            Point.y = transform.position.y;
-            transform.RotateAround(Point, Vector3.down, 90.0f);
-            dirc = false;
-            dir = 2;
+            Right();
         }
     }
 
-    public void Left()
+    private void Left()
     {
+        GameManager.Instance.camera_dir = (GameManager.Instance.camera_dir + 3) % 4;
         Point = GameManager.Instance.ground.transform.position;
         Point.y = transform.position.y;
         transform.RotateAround(Point, Vector3.up, 90.0f);
-        dir = 1;
-        dirc = true;
+        dir = Vector3.up;
+        cam_moved = false;
     }
 
-    public void Right()
+    private void Right()
     {
+        GameManager.Instance.camera_dir = (GameManager.Instance.camera_dir + 1) % 4;
         Point = GameManager.Instance.ground.transform.position;
         Point.y = transform.position.y;
         transform.RotateAround(Point, Vector3.down, 90.0f);
-        dirc = false;
-        dir = 2;
+        cam_moved = false;
+        dir = Vector3.down;
     }
+
 }

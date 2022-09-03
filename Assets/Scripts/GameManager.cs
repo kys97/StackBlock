@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
             dir = d;
             complete = c;
         }
+
+        public void Position(Vector2 v) { position = v; }
+        public void Complete(bool c) { complete = c; }
     }
     public Dictionary<string,Block> Puzzle = new Dictionary<string, Block>();
 
@@ -36,6 +39,8 @@ public class GameManager : MonoBehaviour
     public int camera_dir = 0;
     //거리 변수
     public float block_distance;
+    //퍼즐 생성 완료 변수
+    public bool start = false;
 
 
     //프리펩 생성 변수
@@ -44,8 +49,15 @@ public class GameManager : MonoBehaviour
     public GameObject contents;
     public GameObject move_canvas;
 
-    public GameObject block_parent;
-    [HideInInspector]public GameObject ground;
+    public GameObject test_text;
+    public GameObject canvas;
+
+    [SerializeField] private Object ui_script;
+    [SerializeField] private Object surf_script;
+    [SerializeField] private Object obj_script;
+
+    public GameObject block_parent;//퍼즐
+    [HideInInspector]public GameObject ground;//땅
 
 
     //싱글톤
@@ -76,12 +88,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        click_ui_prefab = Resources.Load<GameObject>("ClickImage");
-        move_ui_prefab = Resources.Load<GameObject>("MoveImage");
+        //click_ui_prefab = Resources.Load<GameObject>("ClickImage");
+        //move_ui_prefab = Resources.Load<GameObject>("MoveImage");
         move_canvas.SetActive(false);
 
         //test
-        stage = 0;
+        stage = Topic.Summer;
         StartPuzzle();
     }
 
@@ -101,9 +113,24 @@ public class GameManager : MonoBehaviour
             case "R": return 1;
             case "B": return 2;
             case "L": return 3;
-
         }
         return -1;
+    }
+
+    public void Cal_Pos()
+    {
+        foreach (KeyValuePair<string, Block> p in Puzzle)
+        {
+            if(!(p.Value.complete))
+                if (p.Value.dir == camera_dir)
+                {
+                    p.Value.Position(Camera.main.WorldToScreenPoint(p.Value.surface.transform.position));
+                    Debug.Log(p.Key + " 화면 위치 : " + p.Value.position);
+                }
+                else
+                    p.Value.Position(new Vector2(-3000, -3000));
+            
+        }
     }
 
 
@@ -111,7 +138,7 @@ public class GameManager : MonoBehaviour
     {
         //변수 초기화
         drag_block_id = null;
-        camera_dir = 1;
+        camera_dir = 0;
         ground = null;
         //블록 리스트 초기화
         Puzzle.Clear();
@@ -127,20 +154,43 @@ public class GameManager : MonoBehaviour
             //UI 생성
             click_ui_prefab.GetComponent<Image>().sprite = sprites[i];
             GameObject temp_ui = Instantiate<GameObject>(click_ui_prefab, contents.transform);
+            temp_ui.GetComponent<BlockUI>().SetKey(parts[i].name);
             //블록 생성
             GameObject temp_block = Instantiate<GameObject>(parts[i]);
             temp_block.transform.SetParent(block_parent.transform, false);
+            //하위 블록
+            GameObject temp_obj = temp_block.transform.Find("object").gameObject;
+            GameObject temp_surf = temp_block.transform.Find("surface").gameObject;
+            temp_obj.AddComponent<BlockObj>().SetKey(parts[i].name);
+            temp_surf.AddComponent<Surface>().SetKey(parts[i].name);
+            temp_obj.SetActive(false);
+            //화면 위치 계산
+            Vector2 temp_pos = Camera.main.WorldToScreenPoint(temp_surf.transform.position);
+            //방향 변수 계산
             int temp_dir = Cal_Dir(sprites[i].name);
+
             //퍼즐 추가
-            Puzzle.Add(parts[i].name, new Block(temp_block.transform.Find("object").gameObject,
-                temp_block.transform.Find("surface").gameObject, sprites[i], new Vector2(-100, -100),
-                temp_dir, false));
+            Puzzle.Add(parts[i].name, new Block(temp_obj, temp_surf, sprites[i], temp_pos, temp_dir, false));
         }
+
+        //필요없는 바닥면 안보이게
+        foreach(KeyValuePair<string, Block> p in Puzzle)
+        {
+            int n = p.Value.block.transform.childCount;
+            if (n > 0)
+                for (int i = 0; i < n; i++)
+                {
+                    Puzzle[Puzzle[p.Key].block.transform.GetChild(i).name].surface.SetActive(false);
+                    Puzzle[Puzzle[p.Key].block.transform.GetChild(i).name].Position(new Vector2(-3000, -3000));
+                }
+        }
+
         //땅 생성
         ground = Instantiate<GameObject>(Resources.Load<GameObject>("Ground/" + stage.ToString()));
         ground.transform.SetParent(block_parent.transform, false);
 
-
+        //퍼즐 조립 시작
+        start = true;
         /*UI
             for (int i = 0; i < sprites.Length; i++)
             {
