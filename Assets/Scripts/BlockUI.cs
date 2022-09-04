@@ -15,7 +15,6 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
     private bool complete = false;
 
 
-
     public void SetKey(string n) { key = n; }
 
     private Vector2 SetSizeNorm(Vector2 size, float n)
@@ -28,8 +27,16 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 
     IEnumerator FadeInOut()
     {
-
-        yield return new WaitForSeconds(0.1f);
+        float f = 0.1f;
+        Color color = move_image.GetComponent<Image>().color;
+        while (true)
+        {
+            if (color.a <= 0.2f || color.a >= 1.0f)
+                f *= -1.0f;
+            color.a += f;
+            move_image.GetComponent<Image>().color = color;
+            yield return new WaitForSeconds(0.07f);
+        }
     }
 
 
@@ -54,17 +61,21 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
     {
         move_image.transform.position = eventData.position;
         move_image.transform.localScale = transform.localScale;
-        Debug.Log(Vector2.Distance(GameManager.Instance.Puzzle[key].pos, move_image.transform.position));
-        if (Vector2.Distance(GameManager.Instance.Puzzle[key].pos, move_image.transform.position) <= GameManager.Instance.block_distance)
-        {
-            //ºþÂ¦ÀÓ
-            complete = true;
-        }
-        else
-        {
-            //ºþÂ¦ÀÓ ÄÚ·çÆ¾ ¸ØÃã
-            complete = false;
-        }
+        float d = Vector2.Distance(GameManager.Instance.Puzzle[key].pos, move_image.transform.position);
+        if(GameManager.Instance.Puzzle[key].dir == GameManager.Instance.camera_dir)
+            if (d <= GameManager.Instance.block_distance && !complete)
+            {
+                StartCoroutine("FadeInOut");
+                complete = true;
+            }
+            else if(d >= GameManager.Instance.block_distance && complete)
+            {
+                StopCoroutine("FadeInOut");
+                Color color = move_image.GetComponent<Image>().color;
+                color.a = 1.0f;
+                move_image.GetComponent<Image>().color = color;
+                complete = false;
+            }
     }
 
     public void OnEndDrag(PointerEventData eventData)

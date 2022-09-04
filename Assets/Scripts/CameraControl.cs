@@ -37,7 +37,6 @@ public class CameraControl : MonoBehaviour
         else
         {
             pointMove.cam_moved = true;
-            Debug.Log("카메라 움직임 끝남");
             GameManager.Instance.Cal_Pos();
         }
     }

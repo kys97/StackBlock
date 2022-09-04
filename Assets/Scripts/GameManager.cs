@@ -49,10 +49,6 @@ public class GameManager : MonoBehaviour
     public GameObject move_canvas;
     //public GameObject canvas;
 
-    [SerializeField] private Object ui_script;
-    [SerializeField] private Object surf_script;
-    [SerializeField] private Object obj_script;
-
     public GameObject block_parent;//∆€¡Ò
     [HideInInspector]public GameObject ground;//∂•
 
@@ -86,8 +82,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //test
-        stage = Topic.Summer;
-        StartPuzzle();
+        //stage = Topic.Summer;
+        //StartPuzzle();
     }
 
     // Update is called once per frame
