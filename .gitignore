@@ -71,3 +71,11 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # End of https://www.toptal.com/developers/gitignore/api/unity
+*.meta
+Assets/CasualGameMusicPack/
+Assets/GUIPack-Clean&Minimalist/
+.idea/.idea.StackBlock/.idea/.gitignore
+.idea/.idea.StackBlock/.idea/encodings.xml
+.idea/.idea.StackBlock/.idea/indexLayout.xml
+.idea/.idea.StackBlock/.idea/vcs.xml
+Assets/Assets/Art-Of-Silence_V2.mp3
