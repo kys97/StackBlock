@@ -7,12 +7,12 @@ FBXHeaderExtension:  {
 	CreationTimeStamp:  {
 		Version: 1000
 		Year: 2022
-		Month: 8
-		Day: 26
-		Hour: 1
-		Minute: 5
-		Second: 22
-		Millisecond: 790
+		Month: 9
+		Day: 8
+		Hour: 12
+		Minute: 48
+		Second: 2
+		Millisecond: 292
 	}
 	Creator: "FBX SDK/FBX Plugins version 2020.1.1"
 	OtherFlags:  {
@@ -31,19 +31,19 @@ FBXHeaderExtension:  {
 			Comment: ""
 		}
 		Properties70:  {
-			P: "DocumentUrl", "KString", "Url", "", "C:\Users\Seongtaek\Desktop\Stack_files\final\opera house.fbx"
-			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\Seongtaek\Desktop\Stack_files\final\opera house.fbx"
+			P: "DocumentUrl", "KString", "Url", "", "C:\Users\Seongtaek\Desktop\Stack_files\final\Opera house.fbx"
+			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\Seongtaek\Desktop\Stack_files\final\Opera house.fbx"
 			P: "Original", "Compound", "", ""
 			P: "Original|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "Original|ApplicationName", "KString", "", "", "3ds Max"
 			P: "Original|ApplicationVersion", "KString", "", "", "2022"
-			P: "Original|DateTime_GMT", "DateTime", "", "", "25/08/2022 16:05:22.789"
-			P: "Original|FileName", "KString", "", "", "C:\Users\Seongtaek\Desktop\Stack_files\final\opera house.fbx"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "08/09/2022 03:48:02.291"
+			P: "Original|FileName", "KString", "", "", "C:\Users\Seongtaek\Desktop\Stack_files\final\Opera house.fbx"
 			P: "LastSaved", "Compound", "", ""
 			P: "LastSaved|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "LastSaved|ApplicationName", "KString", "", "", "3ds Max"
 			P: "LastSaved|ApplicationVersion", "KString", "", "", "2022"
-			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "25/08/2022 16:05:22.789"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "08/09/2022 03:48:02.291"
 			P: "Original|ApplicationActiveProject", "KString", "", "", "C:\Users\Seongtaek\Documents\3ds Max 2022"
 			P: "Original|ApplicationNativeFile", "KString", "", "", "C:\Users\Seongtaek\Desktop\Stack_files\final\2_arrange.max"
 		}
@@ -80,7 +80,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 2160540339680, "", "Scene" {
+	Document: 2901320749664, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -249,7 +249,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 2158400356080, "Geometry::", "Mesh" {
+	Geometry: 2901241489760, "Geometry::", "Mesh" {
 		Properties70:  {
 		}
 		Vertices: *336 {
@@ -326,7 +326,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400370864, "Geometry::", "Mesh" {
+	Geometry: 2901677272688, "Geometry::", "Mesh" {
 		Properties70:  {
 		}
 		Vertices: *462 {
@@ -426,7 +426,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400371312, "Geometry::", "Mesh" {
+	Geometry: 2900633153584, "Geometry::", "Mesh" {
 		Properties70:  {
 		}
 		Vertices: *258 {
@@ -517,7 +517,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400352496, "Geometry::", "Mesh" {
+	Geometry: 2901570104944, "Geometry::", "Mesh" {
 		Properties70:  {
 		}
 		Vertices: *561 {
@@ -622,7 +622,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400369072, "Geometry::", "Mesh" {
+	Geometry: 2901576986752, "Geometry::", "Mesh" {
 		Properties70:  {
 		}
 		Vertices: *255 {
@@ -709,7 +709,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400350256, "Geometry::", "Mesh" {
+	Geometry: 2901576985856, "Geometry::", "Mesh" {
 		Properties70:  {
 		}
 		Vertices: *270 {
@@ -798,7 +798,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400355632, "Geometry::", "Mesh" {
+	Geometry: 2901576986304, "Geometry::", "Mesh" {
 		Properties70:  {
 		}
 		Vertices: *96 {
@@ -861,7 +861,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400362800, "Geometry::", "Mesh" {
+	Geometry: 2901576987648, "Geometry::", "Mesh" {
 		Properties70:  {
 		}
 		Vertices: *357 {
@@ -935,7 +935,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400363696, "Geometry::", "Mesh" {
+	Geometry: 2901576988096, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.109803921568627,0.349019607843137,0.694117647058824
 		}
@@ -998,7 +998,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400354288, "Geometry::", "Mesh" {
+	Geometry: 2901576984960, "Geometry::", "Mesh" {
 		Properties70:  {
 		}
 		Vertices: *273 {
@@ -1088,7 +1088,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400354736, "Geometry::", "Mesh" {
+	Geometry: 2901682989760, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.580392156862745,0.694117647058824,0.105882352941176
 		}
@@ -1148,7 +1148,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400367728, "Geometry::", "Mesh" {
+	Geometry: 2901682988416, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.529411764705882,0.0235294117647059,0.0235294117647059
 		}
@@ -1208,7 +1208,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400357424, "Geometry::", "Mesh" {
+	Geometry: 2901682988864, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.0235294117647059,0.529411764705882,0.0235294117647059
 		}
@@ -1269,7 +1269,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400356528, "Geometry::", "Mesh" {
+	Geometry: 2901682987520, "Geometry::", "Mesh" {
 		Properties70:  {
 		}
 		Vertices: *321 {
@@ -1356,7 +1356,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400365488, "Geometry::", "Mesh" {
+	Geometry: 2901654501232, "Geometry::", "Mesh" {
 		Vertices: *375 {
 			a: 10.2168006896973,2.24293303489685,-2.39668965339661,2.13556909561157,1.94752371311188,-2.84597516059875,-2.45697116851807,-0.98572826385498,-0.727572441101074,3.26965618133545,12.1325149536133,-2.79710721969604,4.60284948348999,11.925892829895,-2.72262978553772,2.38518571853638,11.87917137146,-2.84597134590149,9.38813495635986,11.4302396774292,-2.52127552032471,10.2595596313477,8.21646213531494,-2.45381808280945,10.8518943786621,4.88801765441895,-2.39668869972229,7.62889814376831,11.4883785247803,-2.59407711029053,1.03333342075348,-10.1035127639771,-0.997741460800171,0.802221238613129,-10.3534812927246,-0.778817653656006,0.252279460430145,-11.0266819000244,-0.239419013261795,-1.15630340576172,-10.715765953064,0.662900328636169,-2.10915350914001,10.9560947418213,-0.511207640171051,-1.02607107162476,11.3082733154297,-1.11985087394714,-3.66758251190186,10.1580104827881,0.354415744543076,-3.08110165596008,-11.2429809570313,0.661103367805481,-5.57626390457153,9.88885116577148,0.507026076316833,-8.04349136352539,9.54778957366943,0.704892873764038,-11.6987247467041,9.90445995330811,-0.0994211584329605,-7.73965263366699,4.42485570907593,-0.585528552532196,-7.82839107513428,6.21124982833862,-0.131316840648651,-9.46051979064941,6.18738794326782,-0.539256870746613,-12.4934844970703,9.29378604888916,-0.457704693078995,-8.20625495910645,-12.9955959320068,-0.727572441101074,-9.34389400482178,-13.3617687225342,-0.687041401863098,-10.0251445770264,-11.4156160354614,-0.619111061096191,-6.37689685821533,-9.17419052124023,-0.727572441101074,-5.56518125534058,-7.47857093811035,-0.727572441101074,-6.40815496444702,-5.07615613937378,-0.643631756305695,-9.38901042938232,-13.2208585739136,-0.682300209999084,-6.76542568206787,-4.04950666427612,-0.625836730003357,11.2580261230469,2.60588335990906,-2.4119131565094,11.3249387741089,2.22988486289978,-2.41992783546448,11.389214515686,1.86870908737183,-2.42603778839111,12.6682834625244,-5.31863927841187,-2.87340307235718,11.6578588485718,-5.56237936019897,-2.88280391693115,-7.30169677734375,-1.96706712245941,-0.627554655075073,
 -7.6879734992981,0.308903425931931,-0.6232950091362,-7.69120502471924,0.603714942932129,-0.623694598674774,-7.1278829574585,-2.99980998039246,-0.624909460544586,-7.71590518951416,2.64231777191162,-0.610905706882477,-13.2836179733276,6.93238162994385,-0.481071323156357,-13.3214883804321,8.98912048339844,-0.451659888029099,-13.2972898483276,7.16138219833374,-0.477678626775742,-6.90306329727173,-13.0283470153809,-0.300270318984985,-5.16399002075195,-8.80019474029541,-0.392607718706131,9.35672378540039,-6.81177282333374,-2.04756736755371,8.69897079467773,-7.21208190917969,-1.80863857269287,1.71806299686432,-9.65413570404053,-1.31500864028931,2.53561758995056,-9.08028316497803,-1.69822454452515,6.20941066741943,-7.83870840072632,-1.90873062610626,0.0641095563769341,11.5851259231567,-1.63258767127991,1.78821218013763,12.0902976989746,-2.53011298179626,10.2168006896973,2.24293398857117,-2.39668965339661,2.41763019561768,13.170093536377,-2.84597086906433,3.89309978485107,13.1500720977783,-2.76383709907532,6.87393045425415,2.12073540687561,-2.58254051208496,6.8953595161438,4.22632789611816,-2.58429193496704,5.85632848739624,5.39355516433716,-2.64374327659607,2.3196849822998,9.27307987213135,-2.84597229957581,6.90659999847412,13.0545310974121,-2.63917064666748,12.5757789611816,12.0677862167358,-2.39668583869934,26.7439365386963,8.00396251678467,-2.63832855224609,25.628360748291,5.24420976638794,-2.66379475593567,25.358793258667,2.06463932991028,-2.71422410011292,25.6097679138184,10.0826082229614,-2.61226677894592,27.3688678741455,9.55026912689209,-2.64237523078918,16.6407051086426,-9.27279281616211,-3.13742184638977,12.2621479034424,-8.83543395996094,-3.08664965629578,20.9482154846191,-7.55053806304932,-3.05548810958862,25.7176971435547,-6.11016368865967,-2.99335408210754,24.9745712280273,-2.4676148891449,-2.76610970497131,24.8879585266113,-3.48842453956604,-2.82817959785461,25.2408218383789,0.67304539680481,-2.73015522956848,25.2788410186768,1.12152171134949,-2.72502112388611,25.2082748413086,0.862096667289734,-2.72697997093201,
@@ -1445,7 +1445,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400368176, "Geometry::", "Mesh" {
+	Geometry: 2901654503472, "Geometry::", "Mesh" {
 		Vertices: *219 {
 			a: 4.70204639434814,-6.08486652374268,2.81992411613464,4.7021861076355,-4.97798490524292,2.81992435455322,4.7021861076355,-4.97798490524292,2.81992435455322,7.50420999526978,-4.84342384338379,2.20881414413452,9.03262805938721,-5.08800077438354,1.87550067901611,8.96389389038086,-5.66838455200195,1.89048385620117,8.9572925567627,-6.02513456344604,1.89191961288452,6.18513488769531,-6.2113676071167,2.49645805358887,4.70204639434814,-6.08486652374268,2.81992411613464,3.07189083099365,-6.00114154815674,2.90860390663147,0.182703793048859,-5.91059064865112,3.06577396392822,-2.79493117332458,-5.6656665802002,3.22775673866272,-4.487868309021,-5.5284571647644,3.31985211372375,-8.65327644348145,-3.96868872642517,3.54645848274231,-10.13503074646,-3.57688331604004,3.62706756591797,-9.93296432495117,-3.63472151756287,3.61607480049133,-9.9215784072876,-2.21010756492615,3.61546564102173,3.45518159866333,-0.642424881458282,2.88779187202454,3.43578720092773,-5.08730220794678,2.88881468772888,3.4541163444519,-0.121061347424984,2.87015867233276,3.45518159866333,-0.642424881458282,2.88779187202454,-9.85179996490479,3.0153956413269,3.52614164352417,-9.83304309844971,4.66401720046997,3.46911478042603,-10.1749515533447,5.81734323501587,3.44956374168396,-9.50122165679932,6.35984420776367,3.39254713058472,-9.45961856842041,6.37377834320068,3.38969039916992,4.70379304885864,7.7712082862854,2.81992936134338,4.61316585540771,7.74304580688477,2.82357478141785,2.35308337211609,7.32945966720581,2.91449165344238,3.02601289749146,2.32241988182068,2.88739371299744,3.45491909980774,0.062436904758215,2.87012720108032,3.4541163444519,-0.121061347424984,2.87015867233276,-9.45961856842041,6.37377834320068,3.38969039916992,-5.5839147567749,7.63458824157715,3.23378467559814,-1.81330847740173,9.10233116149902,3.08210778236389,2.61832857131958,9.5004825592041,2.90383315086365,4.70406007766724,9.89128112792969,2.81993007659912,5.75988388061523,10.12721824646,2.58961129188538,8.46098804473877,10.0043449401855,2.0004243850708,8.56169986724854,9.42750453948975,1.97845113277435,
 8.58686542510986,9.06465148925781,1.97295868396759,4.70379304885864,7.7712082862854,2.81992936134338,3.44908857345581,-2.03881907463074,2.88811326026917,3.86245393753052,7.60566854476929,2.85377407073975,-9.52396965026855,0.0608062818646431,3.59385251998901,-9.52396965026855,0.0608062818646431,3.59385251998901,-13.0721912384033,-1.63507378101349,3.78675937652588,-12.8292598724365,0.285939931869507,3.77355766296387,-12.90442943573,0.755545735359192,3.77765083312988,-0.619410276412964,-4.69353580474854,3.10931587219238,-2.06316900253296,-4.56823968887329,3.18785572052002,4.70222473144531,-4.16946792602539,2.81982707977295,-9.11934089660645,-1.64248907566071,3.57172679901123,1.99757242202759,-0.517916560173035,2.96698379516602,2.1607403755188,-2.64903497695923,2.95809268951416,4.70241832733154,-2.63560318946838,2.81982707977295,9.55669403076172,-4.00004386901855,1.76109600067139,9.5830602645874,-3.94576787948608,1.75534725189209,9.61958694458008,-2.87057518959045,1.74741077423096,8.78937816619873,-2.86822605133057,1.92847537994385,4.70370483398438,7.57630205154419,2.81983089447021,8.65717792510986,8.35824680328369,1.95743083953857,8.90596961975098,7.24363231658936,1.90312767028809,4.70364856719971,6.78774785995483,2.81983089447021,8.84250736236572,7.31680774688721,1.91697406768799,-2.62317800521851,6.71130752563477,3.11457347869873,-3.26895117759705,6.62888669967651,3.14055156707764,-7.18647241592407,5.23044157028198,3.29813861846924,2.92239379882813,6.61572313308716,2.89148807525635,1.41680240631104,6.43138885498047,2.95205402374268,1.89601135253906,0.662493288516998,2.93274211883545,-13.3439435958862,3.40381336212158,3.71295547485352,-10.0537395477295,4.15914249420166,3.49879169464111
@@ -1541,7 +1541,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 2158400368624, "Geometry::", "Mesh" {
+	Geometry: 2901654502576, "Geometry::", "Mesh" {
 		Properties70:  {
 		}
 		Vertices: *192 {
@@ -1622,82 +1622,87 @@ Objects:  {
 			}
 		}
 	}
-	Model: 2160780988816, "Model::1F_R", "Mesh" {
+	Model: 2899618311712, "Model::1F_R", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",-11.0636825561523,1.42544651031494,3.64666938781738
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",-8.0369930267334,14.481107711792,13.0764303207397
+			P: "Lcl Translation", "Lcl Translation", "", "A",3.02668952941895,10.8344383239746,14.5018768310547
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UVMap&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",22930
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160780991008, "Model::RoofLF", "Mesh" {
+	Model: 2900940617968, "Model::RoofLF", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",11.5561971664429,-0.501384735107422,-2.20657348632813
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",8.68628120422363,17.2179718017578,-16.8554000854492
+			P: "Lcl Translation", "Lcl Translation", "", "A",-2.86991596221924,19.4245452880859,-17.3567848205566
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UVMap&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",22933
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160780999776, "Model::RoofLB", "Mesh" {
+	Model: 2899115035440, "Model::RoofLB", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",-1.80710220336914,-1.95792579650879,-3.08341312408447
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",27.878791809082,14.9836950302124,-16.6268749237061
+			P: "Lcl Translation", "Lcl Translation", "", "A",29.6858940124512,18.0671081542969,-18.5848007202148
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UVMap&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",22935
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160780993200, "Model::RoofRF", "Mesh" {
+	Model: 2901647959632, "Model::RoofRF", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",-10.5246105194092,-0.0575723648071289,2.41029357910156
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",-15.5832538604736,20.6868209838867,15.0239553451538
+			P: "Lcl Translation", "Lcl Translation", "", "A",-5.05864334106445,18.2765274047852,14.9663829803467
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UVMap&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",22941
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160781001968, "Model::RoofRB", "Mesh" {
+	Model: 2901647955248, "Model::RoofRB", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",-1.84375953674316,-1.60929489135742,-1.96133613586426
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",26.6548461914063,15.8701286315918,15.2750043869019
+			P: "Lcl Translation", "Lcl Translation", "", "A",28.4986057281494,17.8314647674561,13.6657094955444
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UVMap&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",22944
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160781004160, "Model::opera_house=base=", "Mesh" {
+	Model: 2901647942096, "Model::opera_house=base=", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
@@ -1712,15 +1717,16 @@ Objects:  {
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160781010736, "Model::Front_deck", "Mesh" {
+	Model: 2901647961824, "Model::Front_deck", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",0,0,0.587565422058105
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",-37.391674041748,11.4235143661499,-14.9405670166016
+			P: "Lcl Translation", "Lcl Translation", "", "A",-37.391674041748,10.8359489440918,-14.9405670166016
 			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,-0,-1.00179122619506e-05
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UV 맵&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",22957
@@ -1728,153 +1734,163 @@ Objects:  {
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160780995392, "Model::floor", "Mesh" {
+	Model: 2901647957440, "Model::floor", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",0,0,-0.00124073028564453
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",2.22009420394897,7.99675989151001,-1.73786234855652
+			P: "Lcl Translation", "Lcl Translation", "", "A",2.22009420394897,7.99800062179565,-1.73786234855652
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UVMap&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",22958
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160780982240, "Model::floor_A", "Mesh" {
+	Model: 2901647964016, "Model::floor_A", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",-1.9073486328125e-06,-1.9073486328125e-06,-2.52723693847656e-05
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",2.22009420394897,7.9980001449585,-1.73786234855652
+			P: "Lcl Translation", "Lcl Translation", "", "A",2.22009611129761,7.99802541732788,-1.73786425590515
 			P: "MaxHandle", "int", "Integer", "UH",22959
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160781030464, "Model::1F_L", "Mesh" {
+	Model: 2901647944288, "Model::1F_L", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",0,0,9.5367431640625e-07
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",6.16755676269531,10.8344678878784,-17.6322364807129
+			P: "Lcl Translation", "Lcl Translation", "", "A",6.16755676269531,10.8344669342041,-17.6322364807129
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UVMap&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",22960
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160781021696, "Model::1F_L_A", "Mesh" {
+	Model: 2901647946480, "Model::1F_L_A", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",-13.3368186950684,-1.9073486328125e-06,3.64660167694092
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",-7.16926574707031,14.4820003509521,-17.6322364807129
+			P: "Lcl Translation", "Lcl Translation", "", "A",6.16755294799805,10.8353986740112,-17.6322383880615
 			P: "MaxHandle", "int", "Integer", "UH",22961
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160781028272, "Model::Front_deck_A", "Mesh" {
+	Model: 2901647968400, "Model::Front_deck_A", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",0,0,0.589000701904297
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",-37.391674041748,11.4250001907349,-14.9405670166016
+			P: "Lcl Translation", "Lcl Translation", "", "A",-37.391674041748,10.8359994888306,-14.9405670166016
 			P: "MaxHandle", "int", "Integer", "UH",22963
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160781052176, "Model::1F_R_A", "Mesh" {
+	Model: 2901651838208, "Model::1F_R_A", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",-11.0636787414551,1.42544555664063,3.64662170410156
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",-8.0369930267334,14.4820003509521,13.0764303207397
+			P: "Lcl Translation", "Lcl Translation", "", "A",3.02668571472168,10.8353786468506,14.5018758773804
 			P: "MaxHandle", "int", "Integer", "UH",23098
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160781076288, "Model::RoofLF_A", "Mesh" {
+	Model: 2901651816288, "Model::RoofLF_A", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",-10.9549808502197,-0.831077575683594,0.297138214111328
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",-11.8148250579834,19.7700004577637,-16.525707244873
+			P: "Lcl Translation", "Lcl Translation", "", "A",-0.859844207763672,19.4728622436523,-17.3567848205566
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UVMap&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",23100
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160781049984, "Model::RoofRF_A", "Mesh" {
+	Model: 2901651836016, "Model::RoofRF_A", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",-12.72292137146,-0.223980903625488,2.40499877929688
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",-15.5832538604736,20.6879997253418,15.0239553451538
+			P: "Lcl Translation", "Lcl Translation", "", "A",-2.86033248901367,18.2830009460449,14.7999744415283
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UVMap&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",23109
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160781047792, "Model::RoofLB_A", "Mesh" {
+	Model: 2901651825056, "Model::RoofLB_A", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",1.86217880249023,-1.95792579650879,-2.76708507537842
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",27.878791809082,14.9849996566772,-16.6268749237061
+			P: "Lcl Translation", "Lcl Translation", "", "A",26.0166130065918,17.7520847320557,-18.5848007202148
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UVMap&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",23115
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 2160781078480, "Model::RoofRB_A", "Mesh" {
+	Model: 2901651814096, "Model::RoofRB_A", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "GeometricTranslation", "Vector3D", "Vector", "",1.903076171875,-1.60929489135742,-1.48339653015137
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",26.6548461914063,15.871000289917,15.2750043869019
+			P: "Lcl Translation", "Lcl Translation", "", "A",24.7517700195313,17.3543968200684,13.6657094955444
 			P: "UDP3DSMAX", "KString", "", "U", "MapChannel:1 = UVMap&cr;&lf;"
 			P: "MaxHandle", "int", "Integer", "UH",23118
 		}
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Material: 2160081150448, "Material::Material.002", "" {
+	Material: 2901247153440, "Material::Material.002", "" {
 		Version: 102
 		ShadingModel: "unknown"
 		MultiLayer: 0
@@ -1984,7 +2000,7 @@ Objects:  {
 			P: "3dsMax|Parameters|displacement_map_amt", "Float", "", "A",1
 		}
 	}
-	Material: 2160081154608, "Material::Material.001", "" {
+	Material: 2901247154880, "Material::Material.001", "" {
 		Version: 102
 		ShadingModel: "unknown"
 		MultiLayer: 0
@@ -2094,7 +2110,7 @@ Objects:  {
 			P: "3dsMax|Parameters|displacement_map_amt", "Float", "", "A",1
 		}
 	}
-	Material: 2158397790928, "Material::Material #1281", "" {
+	Material: 2901646630080, "Material::Material #1281", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -2116,7 +2132,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 2160081153168, "Material::매테리얼", "" {
+	Material: 2901247153280, "Material::매테리얼", "" {
 		Version: 102
 		ShadingModel: "unknown"
 		MultiLayer: 0
@@ -2226,7 +2242,7 @@ Objects:  {
 			P: "3dsMax|Parameters|displacement_map_amt", "Float", "", "A",1
 		}
 	}
-	Material: 2158397774128, "Material::Material #1665", "" {
+	Material: 2901646632480, "Material::Material #1665", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -2248,7 +2264,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 2160081149648, "Material::Material.003", "" {
+	Material: 2901247155360, "Material::Material.003", "" {
 		Version: 102
 		ShadingModel: "unknown"
 		MultiLayer: 0
@@ -2358,7 +2374,7 @@ Objects:  {
 			P: "3dsMax|Parameters|displacement_map_amt", "Float", "", "A",1
 		}
 	}
-	Material: 2160081153488, "Material::Material", "" {
+	Material: 2901247153920, "Material::Material", "" {
 		Version: 102
 		ShadingModel: "unknown"
 		MultiLayer: 0
@@ -2468,7 +2484,7 @@ Objects:  {
 			P: "3dsMax|Parameters|displacement_map_amt", "Float", "", "A",1
 		}
 	}
-	Material: 2158397794288, "Material::Material #809", "" {
+	Material: 2901646631040, "Material::Material #809", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -2490,7 +2506,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 2160022841456, "Material::Material #14", "" {
+	Material: 2901646630560, "Material::Material #14", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -2512,7 +2528,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 2160022837616, "Material::Material #1326", "" {
+	Material: 2901646632000, "Material::Material #1326", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -2534,7 +2550,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 2160081157008, "Material::매테리얼.002", "" {
+	Material: 2901247156000, "Material::매테리얼.002", "" {
 		Version: 102
 		ShadingModel: "unknown"
 		MultiLayer: 0
@@ -2644,7 +2660,7 @@ Objects:  {
 			P: "3dsMax|Parameters|displacement_map_amt", "Float", "", "A",1
 		}
 	}
-	Material: 2160022838096, "Material::Material #867", "" {
+	Material: 2901646629600, "Material::Material #867", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -2666,7 +2682,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 2160081148528, "Material::매테리얼", "" {
+	Material: 2901247153120, "Material::매테리얼", "" {
 		Version: 102
 		ShadingModel: "unknown"
 		MultiLayer: 0
@@ -2776,7 +2792,7 @@ Objects:  {
 			P: "3dsMax|Parameters|displacement_map_amt", "Float", "", "A",1
 		}
 	}
-	Material: 2160022839056, "Material::Material #62", "" {
+	Material: 2901646629120, "Material::Material #62", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -2798,7 +2814,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Implementation: 2160534772752, "Implementation::Material.002_Implementation", "" {
+	Implementation: 2901683019584, "Implementation::Material.002_Implementation", "" {
 		Version: 100
 		Properties70:  {
 			P: "ShaderLanguage", "KString", "", "", "AiOSL"
@@ -2806,7 +2822,7 @@ Objects:  {
 			P: "RootBindingName", "KString", "", "", "root"
 		}
 	}
-	Implementation: 2160534774768, "Implementation::Material.001_Implementation", "" {
+	Implementation: 2901683018912, "Implementation::Material.001_Implementation", "" {
 		Version: 100
 		Properties70:  {
 			P: "ShaderLanguage", "KString", "", "", "AiOSL"
@@ -2814,7 +2830,7 @@ Objects:  {
 			P: "RootBindingName", "KString", "", "", "root"
 		}
 	}
-	Implementation: 2160534776784, "Implementation::매테리얼_Implementation", "" {
+	Implementation: 2901683018688, "Implementation::매테리얼_Implementation", "" {
 		Version: 100
 		Properties70:  {
 			P: "ShaderLanguage", "KString", "", "", "AiOSL"
@@ -2822,7 +2838,7 @@ Objects:  {
 			P: "RootBindingName", "KString", "", "", "root"
 		}
 	}
-	Implementation: 2160534785296, "Implementation::Material.003_Implementation", "" {
+	Implementation: 2901683017120, "Implementation::Material.003_Implementation", "" {
 		Version: 100
 		Properties70:  {
 			P: "ShaderLanguage", "KString", "", "", "AiOSL"
@@ -2830,7 +2846,7 @@ Objects:  {
 			P: "RootBindingName", "KString", "", "", "root"
 		}
 	}
-	Implementation: 2160534782832, "Implementation::Material_Implementation", "" {
+	Implementation: 2900633075792, "Implementation::Material_Implementation", "" {
 		Version: 100
 		Properties70:  {
 			P: "ShaderLanguage", "KString", "", "", "AiOSL"
@@ -2838,7 +2854,7 @@ Objects:  {
 			P: "RootBindingName", "KString", "", "", "root"
 		}
 	}
-	Implementation: 2160534783056, "Implementation::매테리얼.002_Implementation", "" {
+	Implementation: 2900633077136, "Implementation::매테리얼.002_Implementation", "" {
 		Version: 100
 		Properties70:  {
 			P: "ShaderLanguage", "KString", "", "", "AiOSL"
@@ -2846,7 +2862,7 @@ Objects:  {
 			P: "RootBindingName", "KString", "", "", "root"
 		}
 	}
-	Implementation: 2160534783280, "Implementation::매테리얼_Implementation", "" {
+	Implementation: 2900633075120, "Implementation::매테리얼_Implementation", "" {
 		Version: 100
 		Properties70:  {
 			P: "ShaderLanguage", "KString", "", "", "AiOSL"
@@ -2854,7 +2870,7 @@ Objects:  {
 			P: "RootBindingName", "KString", "", "", "root"
 		}
 	}
-	BindingTable: 2160537203616, "BindingTable::root 16", "" {
+	BindingTable: 2901641449056, "BindingTable::root 23", "" {
 		Version: 100
 		Properties70:  {
 			P: "TargetName", "KString", "", "", "root"
@@ -2949,7 +2965,7 @@ Objects:  {
 		Entry: "3dsMax|Parameters|cutout_map_on", "FbxPropertyEntry", "cutout_map_on", "FbxSemanticEntry"
 		Entry: "3dsMax|Parameters|displacement_map_amt", "FbxPropertyEntry", "displacement_map_amt", "FbxSemanticEntry"
 	}
-	BindingTable: 2160537248256, "BindingTable::root 17", "" {
+	BindingTable: 2901641457696, "BindingTable::root 24", "" {
 		Version: 100
 		Properties70:  {
 			P: "TargetName", "KString", "", "", "root"
@@ -3044,7 +3060,7 @@ Objects:  {
 		Entry: "3dsMax|Parameters|cutout_map_on", "FbxPropertyEntry", "cutout_map_on", "FbxSemanticEntry"
 		Entry: "3dsMax|Parameters|displacement_map_amt", "FbxPropertyEntry", "displacement_map_amt", "FbxSemanticEntry"
 	}
-	BindingTable: 2160537248544, "BindingTable::root 18", "" {
+	BindingTable: 2901641449632, "BindingTable::root 25", "" {
 		Version: 100
 		Properties70:  {
 			P: "TargetName", "KString", "", "", "root"
@@ -3139,7 +3155,7 @@ Objects:  {
 		Entry: "3dsMax|Parameters|cutout_map_on", "FbxPropertyEntry", "cutout_map_on", "FbxSemanticEntry"
 		Entry: "3dsMax|Parameters|displacement_map_amt", "FbxPropertyEntry", "displacement_map_amt", "FbxSemanticEntry"
 	}
-	BindingTable: 2160537203040, "BindingTable::root 19", "" {
+	BindingTable: 2901641449920, "BindingTable::root 26", "" {
 		Version: 100
 		Properties70:  {
 			P: "TargetName", "KString", "", "", "root"
@@ -3234,7 +3250,7 @@ Objects:  {
 		Entry: "3dsMax|Parameters|cutout_map_on", "FbxPropertyEntry", "cutout_map_on", "FbxSemanticEntry"
 		Entry: "3dsMax|Parameters|displacement_map_amt", "FbxPropertyEntry", "displacement_map_amt", "FbxSemanticEntry"
 	}
-	BindingTable: 2160537250560, "BindingTable::root 20", "" {
+	BindingTable: 2901641450496, "BindingTable::root 27", "" {
 		Version: 100
 		Properties70:  {
 			P: "TargetName", "KString", "", "", "root"
@@ -3329,7 +3345,7 @@ Objects:  {
 		Entry: "3dsMax|Parameters|cutout_map_on", "FbxPropertyEntry", "cutout_map_on", "FbxSemanticEntry"
 		Entry: "3dsMax|Parameters|displacement_map_amt", "FbxPropertyEntry", "displacement_map_amt", "FbxSemanticEntry"
 	}
-	BindingTable: 2160537207936, "BindingTable::root 21", "" {
+	BindingTable: 2901641453952, "BindingTable::root 28", "" {
 		Version: 100
 		Properties70:  {
 			P: "TargetName", "KString", "", "", "root"
@@ -3424,7 +3440,7 @@ Objects:  {
 		Entry: "3dsMax|Parameters|cutout_map_on", "FbxPropertyEntry", "cutout_map_on", "FbxSemanticEntry"
 		Entry: "3dsMax|Parameters|displacement_map_amt", "FbxPropertyEntry", "displacement_map_amt", "FbxSemanticEntry"
 	}
-	BindingTable: 2160537201024, "BindingTable::root 22", "" {
+	BindingTable: 2901641454240, "BindingTable::root 29", "" {
 		Version: 100
 		Properties70:  {
 			P: "TargetName", "KString", "", "", "root"
@@ -3519,31 +3535,32 @@ Objects:  {
 		Entry: "3dsMax|Parameters|cutout_map_on", "FbxPropertyEntry", "cutout_map_on", "FbxSemanticEntry"
 		Entry: "3dsMax|Parameters|displacement_map_amt", "FbxPropertyEntry", "displacement_map_amt", "FbxSemanticEntry"
 	}
-	CollectionExclusive: 2160548081968, "DisplayLayer::measure", "DisplayLayer" {
+	CollectionExclusive: 2899305452912, "DisplayLayer::measure", "DisplayLayer" {
 		Properties70:  {
-			P: "Color", "ColorRGB", "Color", "",0.223529411764706,0.0313725490196078,0.533333333333333
-		}
-	}
-	CollectionExclusive: 2160548082352, "DisplayLayer::Egypt", "DisplayLayer" {
-		Properties70:  {
-			P: "Color", "ColorRGB", "Color", "",0.337254901960784,0.337254901960784,0.337254901960784
+			P: "Color", "ColorRGB", "Color", "",0.223529411764706,0.0274509803921569,0.529411764705882
 			P: "Show", "bool", "", "",0
 		}
 	}
-	CollectionExclusive: 2160548082544, "DisplayLayer::Opera_house", "DisplayLayer" {
+	CollectionExclusive: 2899305458096, "DisplayLayer::Egypt", "DisplayLayer" {
 		Properties70:  {
-			P: "Color", "ColorRGB", "Color", "",0.345098039215686,0.345098039215686,0.882352941176471
-		}
-	}
-	CollectionExclusive: 2160548083120, "DisplayLayer::Bigben", "DisplayLayer" {
-		Properties70:  {
-			P: "Color", "ColorRGB", "Color", "",0.776470588235294,0.882352941176471,0.341176470588235
+			P: "Color", "ColorRGB", "Color", "",0.333333333333333,0.333333333333333,0.333333333333333
 			P: "Show", "bool", "", "",0
 		}
 	}
-	CollectionExclusive: 2160548082736, "DisplayLayer::TowerBridge", "DisplayLayer" {
+	CollectionExclusive: 2899305464816, "DisplayLayer::Opera_house", "DisplayLayer" {
 		Properties70:  {
-			P: "Color", "ColorRGB", "Color", "",0.105882352941176,0.694117647058824,0.345098039215686
+			P: "Color", "ColorRGB", "Color", "",0.341176470588235,0.341176470588235,0.882352941176471
+		}
+	}
+	CollectionExclusive: 2899305439280, "DisplayLayer::Bigben", "DisplayLayer" {
+		Properties70:  {
+			P: "Color", "ColorRGB", "Color", "",0.772549019607843,0.882352941176471,0.337254901960784
+			P: "Show", "bool", "", "",0
+		}
+	}
+	CollectionExclusive: 2899305439664, "DisplayLayer::TowerBridge", "DisplayLayer" {
+		Properties70:  {
+			P: "Color", "ColorRGB", "Color", "",0.101960784313725,0.694117647058824,0.341176470588235
 			P: "Show", "bool", "", "",0
 		}
 	}
@@ -3555,305 +3572,305 @@ Objects:  {
 Connections:  {
 	
 	;Model::1F_R, Model::RootNode
-	C: "OO",2160780988816,0
+	C: "OO",2899618311712,0
 	
 	;Model::RoofLF, Model::RootNode
-	C: "OO",2160780991008,0
+	C: "OO",2900940617968,0
 	
 	;Model::RoofLB, Model::RootNode
-	C: "OO",2160780999776,0
+	C: "OO",2899115035440,0
 	
 	;Model::RoofRF, Model::RootNode
-	C: "OO",2160780993200,0
+	C: "OO",2901647959632,0
 	
 	;Model::RoofRB, Model::RootNode
-	C: "OO",2160781001968,0
+	C: "OO",2901647955248,0
 	
 	;Model::opera_house=base=, Model::RootNode
-	C: "OO",2160781004160,0
+	C: "OO",2901647942096,0
 	
 	;Model::Front_deck, Model::RootNode
-	C: "OO",2160781010736,0
+	C: "OO",2901647961824,0
 	
 	;Model::floor, Model::RootNode
-	C: "OO",2160780995392,0
+	C: "OO",2901647957440,0
 	
 	;Model::floor_A, Model::RootNode
-	C: "OO",2160780982240,0
+	C: "OO",2901647964016,0
 	
 	;Model::1F_L, Model::RootNode
-	C: "OO",2160781030464,0
+	C: "OO",2901647944288,0
 	
 	;Model::1F_L_A, Model::RootNode
-	C: "OO",2160781021696,0
+	C: "OO",2901647946480,0
 	
 	;Model::Front_deck_A, Model::RootNode
-	C: "OO",2160781028272,0
+	C: "OO",2901647968400,0
 	
 	;Model::1F_R_A, Model::RootNode
-	C: "OO",2160781052176,0
+	C: "OO",2901651838208,0
 	
 	;Model::RoofLF_A, Model::RootNode
-	C: "OO",2160781076288,0
+	C: "OO",2901651816288,0
 	
 	;Model::RoofRF_A, Model::RootNode
-	C: "OO",2160781049984,0
+	C: "OO",2901651836016,0
 	
 	;Model::RoofLB_A, Model::RootNode
-	C: "OO",2160781047792,0
+	C: "OO",2901651825056,0
 	
 	;Model::RoofRB_A, Model::RootNode
-	C: "OO",2160781078480,0
+	C: "OO",2901651814096,0
 	
 	;Geometry::, Model::1F_R
-	C: "OO",2158400356080,2160780988816
+	C: "OO",2901241489760,2899618311712
 	
 	;Material::Material.002, Model::1F_R
-	C: "OO",2160081150448,2160780988816
+	C: "OO",2901247153440,2899618311712
 	
 	;Material::Material.001, Model::1F_R
-	C: "OO",2160081154608,2160780988816
+	C: "OO",2901247154880,2899618311712
 	
 	;Material::Material #1281, Model::1F_R
-	C: "OO",2158397790928,2160780988816
+	C: "OO",2901646630080,2899618311712
 	
 	;Material::매테리얼, Model::1F_R
-	C: "OO",2160081153168,2160780988816
+	C: "OO",2901247153280,2899618311712
 	
 	;Material::Material #1665, Model::1F_R
-	C: "OO",2158397774128,2160780988816
+	C: "OO",2901646632480,2899618311712
 	
 	;Geometry::, Model::RoofLF
-	C: "OO",2158400370864,2160780991008
+	C: "OO",2901677272688,2900940617968
 	
 	;Material::Material.003, Model::RoofLF
-	C: "OO",2160081149648,2160780991008
+	C: "OO",2901247155360,2900940617968
 	
 	;Material::Material, Model::RoofLF
-	C: "OO",2160081153488,2160780991008
+	C: "OO",2901247153920,2900940617968
 	
 	;Geometry::, Model::RoofLB
-	C: "OO",2158400371312,2160780999776
+	C: "OO",2900633153584,2899115035440
 	
 	;Material::Material.003, Model::RoofLB
-	C: "OO",2160081149648,2160780999776
+	C: "OO",2901247155360,2899115035440
 	
 	;Material::Material, Model::RoofLB
-	C: "OO",2160081153488,2160780999776
+	C: "OO",2901247153920,2899115035440
 	
 	;Geometry::, Model::RoofRF
-	C: "OO",2158400352496,2160780993200
+	C: "OO",2901570104944,2901647959632
 	
 	;Material::Material.003, Model::RoofRF
-	C: "OO",2160081149648,2160780993200
+	C: "OO",2901247155360,2901647959632
 	
 	;Material::Material, Model::RoofRF
-	C: "OO",2160081153488,2160780993200
+	C: "OO",2901247153920,2901647959632
 	
 	;Geometry::, Model::RoofRB
-	C: "OO",2158400369072,2160781001968
+	C: "OO",2901576986752,2901647955248
 	
 	;Material::Material.003, Model::RoofRB
-	C: "OO",2160081149648,2160781001968
+	C: "OO",2901247155360,2901647955248
 	
 	;Material::Material, Model::RoofRB
-	C: "OO",2160081153488,2160781001968
+	C: "OO",2901247153920,2901647955248
 	
 	;Geometry::, Model::opera_house=base=
-	C: "OO",2158400350256,2160781004160
+	C: "OO",2901576985856,2901647942096
 	
 	;Material::Material #809, Model::opera_house=base=
-	C: "OO",2158397794288,2160781004160
+	C: "OO",2901646631040,2901647942096
 	
 	;Material::Material #14, Model::opera_house=base=
-	C: "OO",2160022841456,2160781004160
+	C: "OO",2901646630560,2901647942096
 	
 	;Material::Material #1326, Model::opera_house=base=
-	C: "OO",2160022837616,2160781004160
+	C: "OO",2901646632000,2901647942096
 	
 	;Geometry::, Model::Front_deck
-	C: "OO",2158400355632,2160781010736
+	C: "OO",2901576986304,2901647961824
 	
 	;Material::Material.003, Model::Front_deck
-	C: "OO",2160081149648,2160781010736
+	C: "OO",2901247155360,2901647961824
 	
 	;Material::Material, Model::Front_deck
-	C: "OO",2160081153488,2160781010736
+	C: "OO",2901247153920,2901647961824
 	
 	;Geometry::, Model::floor
-	C: "OO",2158400362800,2160780995392
+	C: "OO",2901576987648,2901647957440
 	
 	;Material::매테리얼.002, Model::floor
-	C: "OO",2160081157008,2160780995392
+	C: "OO",2901247156000,2901647957440
 	
 	;Material::Material.002, Model::floor
-	C: "OO",2160081150448,2160780995392
+	C: "OO",2901247153440,2901647957440
 	
 	;Material::Material #867, Model::floor
-	C: "OO",2160022838096,2160780995392
+	C: "OO",2901646629600,2901647957440
 	
 	;Geometry::, Model::floor_A
-	C: "OO",2158400363696,2160780982240
+	C: "OO",2901576988096,2901647964016
 	
 	;Material::매테리얼.002, Model::floor_A
-	C: "OO",2160081157008,2160780982240
+	C: "OO",2901247156000,2901647964016
 	
 	;Material::Material.002, Model::floor_A
-	C: "OO",2160081150448,2160780982240
+	C: "OO",2901247153440,2901647964016
 	
 	;Geometry::, Model::1F_L
-	C: "OO",2158400354288,2160781030464
+	C: "OO",2901576984960,2901647944288
 	
 	;Material::Material.002, Model::1F_L
-	C: "OO",2160081150448,2160781030464
+	C: "OO",2901247153440,2901647944288
 	
 	;Material::Material.001, Model::1F_L
-	C: "OO",2160081154608,2160781030464
+	C: "OO",2901247154880,2901647944288
 	
 	;Material::매테리얼, Model::1F_L
-	C: "OO",2160081148528,2160781030464
+	C: "OO",2901247153120,2901647944288
 	
 	;Material::Material #1665, Model::1F_L
-	C: "OO",2158397774128,2160781030464
+	C: "OO",2901646632480,2901647944288
 	
 	;Geometry::, Model::1F_L_A
-	C: "OO",2158400354736,2160781021696
+	C: "OO",2901682989760,2901647946480
 	
 	;Material::매테리얼.002, Model::1F_L_A
-	C: "OO",2160081157008,2160781021696
+	C: "OO",2901247156000,2901647946480
 	
 	;Material::Material.002, Model::1F_L_A
-	C: "OO",2160081150448,2160781021696
+	C: "OO",2901247153440,2901647946480
 	
 	;Material::Material.001, Model::1F_L_A
-	C: "OO",2160081154608,2160781021696
+	C: "OO",2901247154880,2901647946480
 	
 	;Geometry::, Model::Front_deck_A
-	C: "OO",2158400367728,2160781028272
+	C: "OO",2901682988416,2901647968400
 	
 	;Material::Material #62, Model::Front_deck_A
-	C: "OO",2160022839056,2160781028272
+	C: "OO",2901646629120,2901647968400
 	
 	;Geometry::, Model::1F_R_A
-	C: "OO",2158400357424,2160781052176
+	C: "OO",2901682988864,2901651838208
 	
 	;Material::Material #62, Model::1F_R_A
-	C: "OO",2160022839056,2160781052176
+	C: "OO",2901646629120,2901651838208
 	
 	;Geometry::, Model::RoofLF_A
-	C: "OO",2158400356528,2160781076288
+	C: "OO",2901682987520,2901651816288
 	
 	;Material::Material #62, Model::RoofLF_A
-	C: "OO",2160022839056,2160781076288
+	C: "OO",2901646629120,2901651816288
 	
 	;Geometry::, Model::RoofRF_A
-	C: "OO",2158400365488,2160781049984
+	C: "OO",2901654501232,2901651836016
 	
 	;Material::Material #62, Model::RoofRF_A
-	C: "OO",2160022839056,2160781049984
+	C: "OO",2901646629120,2901651836016
 	
 	;Geometry::, Model::RoofLB_A
-	C: "OO",2158400368176,2160781047792
+	C: "OO",2901654503472,2901651825056
 	
 	;Material::Material #62, Model::RoofLB_A
-	C: "OO",2160022839056,2160781047792
+	C: "OO",2901646629120,2901651825056
 	
 	;Geometry::, Model::RoofRB_A
-	C: "OO",2158400368624,2160781078480
+	C: "OO",2901654502576,2901651814096
 	
 	;Material::Material #62, Model::RoofRB_A
-	C: "OO",2160022839056,2160781078480
+	C: "OO",2901646629120,2901651814096
 	
 	;Material::Material.002, Implementation::Material.002_Implementation
-	C: "OO",2160081150448,2160534772752
+	C: "OO",2901247153440,2901683019584
 	
-	;BindingTable::root 16, Implementation::Material.002_Implementation
-	C: "OO",2160537203616,2160534772752
+	;BindingTable::root 23, Implementation::Material.002_Implementation
+	C: "OO",2901641449056,2901683019584
 	
 	;Material::Material.001, Implementation::Material.001_Implementation
-	C: "OO",2160081154608,2160534774768
+	C: "OO",2901247154880,2901683018912
 	
-	;BindingTable::root 17, Implementation::Material.001_Implementation
-	C: "OO",2160537248256,2160534774768
+	;BindingTable::root 24, Implementation::Material.001_Implementation
+	C: "OO",2901641457696,2901683018912
 	
 	;Material::매테리얼, Implementation::매테리얼_Implementation
-	C: "OO",2160081153168,2160534776784
+	C: "OO",2901247153280,2901683018688
 	
-	;BindingTable::root 18, Implementation::매테리얼_Implementation
-	C: "OO",2160537248544,2160534776784
+	;BindingTable::root 25, Implementation::매테리얼_Implementation
+	C: "OO",2901641449632,2901683018688
 	
 	;Material::Material.003, Implementation::Material.003_Implementation
-	C: "OO",2160081149648,2160534785296
+	C: "OO",2901247155360,2901683017120
 	
-	;BindingTable::root 19, Implementation::Material.003_Implementation
-	C: "OO",2160537203040,2160534785296
+	;BindingTable::root 26, Implementation::Material.003_Implementation
+	C: "OO",2901641449920,2901683017120
 	
 	;Material::Material, Implementation::Material_Implementation
-	C: "OO",2160081153488,2160534782832
+	C: "OO",2901247153920,2900633075792
 	
-	;BindingTable::root 20, Implementation::Material_Implementation
-	C: "OO",2160537250560,2160534782832
+	;BindingTable::root 27, Implementation::Material_Implementation
+	C: "OO",2901641450496,2900633075792
 	
 	;Material::매테리얼.002, Implementation::매테리얼.002_Implementation
-	C: "OO",2160081157008,2160534783056
+	C: "OO",2901247156000,2900633077136
 	
-	;BindingTable::root 21, Implementation::매테리얼.002_Implementation
-	C: "OO",2160537207936,2160534783056
+	;BindingTable::root 28, Implementation::매테리얼.002_Implementation
+	C: "OO",2901641453952,2900633077136
 	
 	;Material::매테리얼, Implementation::매테리얼_Implementation
-	C: "OO",2160081148528,2160534783280
+	C: "OO",2901247153120,2900633075120
 	
-	;BindingTable::root 22, Implementation::매테리얼_Implementation
-	C: "OO",2160537201024,2160534783280
+	;BindingTable::root 29, Implementation::매테리얼_Implementation
+	C: "OO",2901641454240,2900633075120
 	
 	;Model::RoofRB_A, DisplayLayer::Opera_house
-	C: "OO",2160781078480,2160548082544
+	C: "OO",2901651814096,2899305464816
 	
 	;Model::RoofLB_A, DisplayLayer::Opera_house
-	C: "OO",2160781047792,2160548082544
+	C: "OO",2901651825056,2899305464816
 	
 	;Model::RoofRF_A, DisplayLayer::Opera_house
-	C: "OO",2160781049984,2160548082544
+	C: "OO",2901651836016,2899305464816
 	
 	;Model::RoofLF_A, DisplayLayer::Opera_house
-	C: "OO",2160781076288,2160548082544
+	C: "OO",2901651816288,2899305464816
 	
 	;Model::1F_R_A, DisplayLayer::Opera_house
-	C: "OO",2160781052176,2160548082544
+	C: "OO",2901651838208,2899305464816
 	
 	;Model::Front_deck_A, DisplayLayer::Opera_house
-	C: "OO",2160781028272,2160548082544
+	C: "OO",2901647968400,2899305464816
 	
 	;Model::1F_L_A, DisplayLayer::Opera_house
-	C: "OO",2160781021696,2160548082544
+	C: "OO",2901647946480,2899305464816
 	
 	;Model::1F_L, DisplayLayer::Opera_house
-	C: "OO",2160781030464,2160548082544
+	C: "OO",2901647944288,2899305464816
 	
 	;Model::floor_A, DisplayLayer::Opera_house
-	C: "OO",2160780982240,2160548082544
+	C: "OO",2901647964016,2899305464816
 	
 	;Model::floor, DisplayLayer::Opera_house
-	C: "OO",2160780995392,2160548082544
+	C: "OO",2901647957440,2899305464816
 	
 	;Model::Front_deck, DisplayLayer::Opera_house
-	C: "OO",2160781010736,2160548082544
+	C: "OO",2901647961824,2899305464816
 	
 	;Model::opera_house=base=, DisplayLayer::Opera_house
-	C: "OO",2160781004160,2160548082544
+	C: "OO",2901647942096,2899305464816
 	
 	;Model::RoofRB, DisplayLayer::Opera_house
-	C: "OO",2160781001968,2160548082544
+	C: "OO",2901647955248,2899305464816
 	
 	;Model::RoofRF, DisplayLayer::Opera_house
-	C: "OO",2160780993200,2160548082544
+	C: "OO",2901647959632,2899305464816
 	
 	;Model::RoofLB, DisplayLayer::Opera_house
-	C: "OO",2160780999776,2160548082544
+	C: "OO",2899115035440,2899305464816
 	
 	;Model::RoofLF, DisplayLayer::Opera_house
-	C: "OO",2160780991008,2160548082544
+	C: "OO",2900940617968,2899305464816
 	
 	;Model::1F_R, DisplayLayer::Opera_house
-	C: "OO",2160780988816,2160548082544
+	C: "OO",2899618311712,2899305464816
 }

@@ -37,6 +37,7 @@ public class CameraControl : MonoBehaviour
         else
         {
             pointMove.cam_moved = true;
+            
             GameManager.Instance.Cal_Pos();
         }
     }

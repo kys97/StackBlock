@@ -29,6 +29,7 @@ public class PointMove : MonoBehaviour
 
     private void Left()
     {
+        transform.position = Camera.main.transform.position;
         GameManager.Instance.camera_dir = (GameManager.Instance.camera_dir + 3) % 4;
         Point = GameManager.Instance.ground.transform.position;
         Point.y = transform.position.y;
@@ -39,6 +40,7 @@ public class PointMove : MonoBehaviour
 
     private void Right()
     {
+        transform.position = Camera.main.transform.position;
         GameManager.Instance.camera_dir = (GameManager.Instance.camera_dir + 1) % 4;
         Point = GameManager.Instance.ground.transform.position;
         Point.y = transform.position.y;

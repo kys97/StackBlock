@@ -17,8 +17,6 @@ public class BlockObj : MonoBehaviour
                     string k = GameManager.Instance.Puzzle[key].block.transform.GetChild(i).name;
                     GameManager.Instance.Puzzle[k].surface.SetActive(true);
                 }
-
-            GameManager.Instance.Puzzle[key].Complete(true);
         }
     }
 

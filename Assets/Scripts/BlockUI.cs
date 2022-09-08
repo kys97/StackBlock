@@ -62,6 +62,7 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         move_image.transform.position = eventData.position;
         move_image.transform.localScale = transform.localScale;
         float d = Vector2.Distance(GameManager.Instance.Puzzle[key].pos, move_image.transform.position);
+        Debug.Log(d);
         if(GameManager.Instance.Puzzle[key].dir == GameManager.Instance.camera_dir)
             if (d <= GameManager.Instance.block_distance && !complete)
             {
@@ -83,9 +84,16 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         if (complete)
         {
             GameManager.Instance.Puzzle[key].block.SetActive(true);
+            GameManager.Instance.comlete_num++;
+            GameManager.Instance.score += 50;
             Destroy(move_image.gameObject);
             move_image = null;
             Destroy(gameObject);
+
+            if (GameManager.Instance.comlete_num == GameManager.Instance.puz_num)
+            {
+                GameManager.Instance.BlockComplete();
+            }
         }
         else
         {

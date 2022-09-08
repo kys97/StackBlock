@@ -198,6 +198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85454c1baab46874ea19b58fa4ca8b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weather_campos: {x: 0, y: 0, z: 0}
+  weather_camrot: 0
+  structure_campos: {x: 0, y: 0, z: 0}
+  structure_camrot: 0
   drag_block_id: 0
   camera_dir: 0
   block_distance: 70
@@ -205,9 +209,6 @@ MonoBehaviour:
   click_ui_prefab: {fileID: 1844028201494094746, guid: de079374b42753f469a333e93acf15f7, type: 3}
   contents: {fileID: 152536303}
   move_canvas: {fileID: 257336808}
-  ui_script: {fileID: 11500000, guid: 55186cab5f9b88d419490f85b72a49f3, type: 3}
-  surf_script: {fileID: 11500000, guid: 99d97a6617d3c894da4fa0f17dd47982, type: 3}
-  obj_script: {fileID: 11500000, guid: de018d598dd90f04cb5694748ed6f864, type: 3}
   block_parent: {fileID: 1030880136}
   ground: {fileID: 0}
 --- !u!4 &72651577
@@ -235,7 +236,6 @@ GameObject:
   - component: {fileID: 152536304}
   - component: {fileID: 152536307}
   - component: {fileID: 152536306}
-  - component: {fileID: 152536305}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -262,18 +262,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &152536305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 152536303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5539dc8c8780e3a438dc009b934f8dad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &152536306
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    enum Topic { Spring, Summer,Desert, Fall, Winter, Bigben, Egypt, OperaHouse, TowerBridge }
+    public enum Status { Topic, Stage, Puzzle }
+    public enum Topic { Weather, Structure }
+    public enum Stage { Spring, Summer, Desert, Fall, Winter, Bigben, Egypt, OperaHouse, TowerBridge }
+
 
     public class Block
     {
@@ -31,8 +35,33 @@ public class GameManager : MonoBehaviour
     public Dictionary<string,Block> Puzzle = new Dictionary<string, Block>();
 
 
+    //카메라 위치 상수
+    public Vector3 weather_campos;
+    public float weather_camrot;
+    public Vector3 structure_campos;
+    public float structure_camrot;
+
+
+    //게임 상황 변수
+    public Status status;
+    //주제 변수
+    public Topic topic;
+    public void SetTopic(string n) { topic = (Topic)System.Enum.Parse(typeof(Topic), n); }
     //스테이지 변수
-    Topic stage;
+    public Stage stage;
+
+
+    //점수 변수
+    public int score;
+    //총 걸린 시간 변수
+    public float playing_time;
+    //퍼즐 성공 여부 변수
+    public bool success;
+
+
+    //블록 갯수 변수
+    public int puz_num;
+    public int comlete_num;
     //선택된 블록 변수
     public string drag_block_id;
     //카메라 방향 변수
@@ -47,7 +76,6 @@ public class GameManager : MonoBehaviour
     public GameObject click_ui_prefab;
     public GameObject contents;
     public GameObject move_canvas;
-    //public GameObject canvas;
 
     public GameObject block_parent;//퍼즐
     [HideInInspector]public GameObject ground;//땅
@@ -89,7 +117,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (start)
+        {
+            playing_time += Time.deltaTime;
+        }
+    }
+
+    public void SetStage(string s)
+    {
+        stage = (Stage)System.Enum.Parse(typeof(Stage), s);
+    }
+
+
+    public void BlockComplete()
+    {
+        success = true;
+        score -= (int)playing_time; 
+    }
+
+    public void BlockFail()
+    {
+        start = false;
+        success = false; 
     }
 
 
@@ -112,17 +161,20 @@ public class GameManager : MonoBehaviour
         {
             if(!(p.Value.complete))
                 if (p.Value.dir == camera_dir)
-                    p.Value.Position(Camera.main.WorldToScreenPoint(p.Value.surface.transform.position));
+                    p.Value.Position(Camera.main.WorldToScreenPoint(p.Value.block.transform.position));
                 else
                     p.Value.Position(new Vector2(-3000, -3000));
-            
         }
     }
 
 
-    private void StartPuzzle()
+    public void StartPuzzle()
     {
         //변수 초기화
+        playing_time = 0f;
+        score = 0;
+        puz_num = 0;
+        comlete_num = 0;
         drag_block_id = null;
         camera_dir = 0;
         ground = null;
@@ -134,6 +186,8 @@ public class GameManager : MonoBehaviour
         Sprite[] sprites = Resources.LoadAll<Sprite>("Puzzle/" + stage.ToString());
         //블록 프리펩 로드
         GameObject[] parts = Resources.LoadAll<GameObject>("Puzzle/" + stage.ToString());
+        puz_num = sprites.Length;
+
         //Dictionary에 추가
         for (int i = 0; i < sprites.Length; i++)
         {
@@ -166,8 +220,10 @@ public class GameManager : MonoBehaviour
             if (n > 0)
                 for (int i = 0; i < n; i++)
                 {
-                    Puzzle[Puzzle[p.Key].block.transform.GetChild(i).name].surface.SetActive(false);
-                    Puzzle[Puzzle[p.Key].block.transform.GetChild(i).name].Position(new Vector2(-3000, -3000));
+                    string s = p.Value.block.transform.GetChild(i).name;
+                    Debug.Log(s);
+                    Puzzle[p.Value.block.transform.GetChild(i).name].surface.SetActive(false);
+                    Puzzle[p.Value.block.transform.GetChild(i).name].Position(new Vector2(-3000, -3000));
                 }
         }
 
@@ -175,50 +231,17 @@ public class GameManager : MonoBehaviour
         ground = Instantiate<GameObject>(Resources.Load<GameObject>("Ground/" + stage.ToString()));
         ground.transform.SetParent(block_parent.transform, false);
 
+        //잠시 쉬어가는 애니메이션 있음 좋고 없음 말고
+
         //퍼즐 조립 시작
         start = true;
-        /*UI
-            for (int i = 0; i < sprites.Length; i++)
-            {
-                block_parts_image.Add(sprites[i]);
-                click_ui_prefab.GetComponent<Image>().sprite = sprites[i];
-                GameObject temp = Instantiate<GameObject>(click_ui_prefab, contents.transform);
-                temp.GetComponent<BlockUI>().SetUiId(i + 1);
-            }
-            
-            for (int i = 0; i < parts.Length; i++)
-            {
-                GameObject temp = Instantiate<GameObject>(parts[i]);
-                temp.transform.SetParent(block_parent.transform, false);
-                block_parts.Add(temp);
-                temp.transform.Find("object").gameObject.SetActive(false);
-                temp.transform.Find("surface").gameObject.SetActive(true);
-                temp.AddComponent<BlockParts>().SetBlockId(i + 1);
-                parts_pos.Add(Camera.main.WorldToScreenPoint(temp.transform.GetChild(1).gameObject.transform.position));
-            }*/
-    }
-
-    public void PuzzleClear()
-    {
-        //퍼즐 클리어 화면 UI
-
+        success = false;
     }
 
     public void NextPuzzle()
     {
-        //다음 스테이지
-        if (stage == Topic.Winter || stage == Topic.TowerBridge)
-            EndTopic();
-        else 
-        { 
-            //스테이지 변수
-            stage++;
-
-            //UI 셋팅
-
-            //게임 시작
-            StartPuzzle();
-        }
+        
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void EndTopic()
