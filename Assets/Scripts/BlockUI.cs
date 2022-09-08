@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler ,IDropHandler
 {
-    private string key;
+    [SerializeField]private string key;
    
     public GameObject move_prefab;
 

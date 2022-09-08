@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class UI : MonoBehaviour
 {
     public Slider timer;
+    public Button next_btn;
 
     public void ToMain()
     {
@@ -22,7 +23,10 @@ public class UI : MonoBehaviour
 
     public void NextStage()
     {
-        GameManager.Instance.stage++;
+        if(GameManager.Instance.stage == GameManager.Stage.Winter || GameManager.Instance.stage == GameManager.Stage.TowerBridge)
+            next_btn.enabled = false;
+        else
+            GameManager.Instance.stage++;
         timer.value = 10f;
         GameManager.Instance.NextPuzzle();
     }
