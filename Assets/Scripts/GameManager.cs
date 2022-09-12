@@ -10,11 +10,12 @@ public class GameManager : MonoBehaviour
     public enum Topic { Weather, Structure }
     public enum Stage { Spring, Summer, Desert, Fall, Winter, Bigben, Egypt, OperaHouse, TowerBridge }
 
-
+    
     public class Block
     {
         public GameObject block, surface;
         public Sprite ui;
+
         public Vector2 pos;
         public int dir;
         public bool complete;
@@ -34,6 +35,9 @@ public class GameManager : MonoBehaviour
     }
     public Dictionary<string,Block> Puzzle = new Dictionary<string, Block>();
 
+
+    //BGM
+    public AudioClip bgm; 
 
     //카메라 위치 상수
     public Vector3 weather_campos;
@@ -226,6 +230,12 @@ public class GameManager : MonoBehaviour
 
         //잠시 쉬어가는 애니메이션 있음 좋고 없음 말고
 
+
+        //BGM 설정
+        GetComponent<AudioSource>().loop = true;
+        GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("BGM/" + stage.ToString());
+        GetComponent<AudioSource>().Play();
+
         //퍼즐 조립 시작
         start = true;
         success = false;
@@ -233,7 +243,6 @@ public class GameManager : MonoBehaviour
 
     public void NextPuzzle()
     {
-        
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
