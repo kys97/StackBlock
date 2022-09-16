@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
     public GameObject click_ui_prefab;
     public GameObject contents;
     public GameObject move_canvas;
+    public GameObject[] ready = new GameObject[4];
 
     public GameObject block_parent;//퍼즐
     [HideInInspector]public GameObject ground;//땅
@@ -227,19 +228,40 @@ public class GameManager : MonoBehaviour
         //땅 생성
         ground = Instantiate<GameObject>(Resources.Load<GameObject>("Ground/" + stage.ToString()));
         ground.transform.SetParent(block_parent.transform, false);
+        
+        //ReadyCount();
+    }
 
-        //잠시 쉬어가는 애니메이션 있음 좋고 없음 말고
+    IEnumerator ReadyCount()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+
+            yield return new WaitForSeconds(1f);
+        }
+        start = true;
+        yield break;
+    }
+
+    /*
+    public void ReadyCount()
+    {
+        //카운트 다운 애니메이션
+
+
+
 
 
         //BGM 설정
+        bgm = Resources.Load<AudioClip>("BGM/" + stage.ToString());
         GetComponent<AudioSource>().loop = true;
-        GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("BGM/" + stage.ToString());
+        GetComponent<AudioSource>().clip = bgm;
         GetComponent<AudioSource>().Play();
 
         //퍼즐 조립 시작
         start = true;
         success = false;
-    }
+    }*/
 
     public void NextPuzzle()
     {
