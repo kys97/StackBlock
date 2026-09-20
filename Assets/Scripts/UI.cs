@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -7,8 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
-    public Slider timer;
-    public Button next_btn;
+    [SerializeField] private Button next_btn;
+    private GameSession session;
+    private GameSession Selection => session != null ? session : (session = GameManager.Instance.Session);
+
+    private void Start()
+    {
+        session = GameManager.Instance.Session;
+    }
 
     public void ToMain()
     {
@@ -17,29 +21,27 @@ public class UI : MonoBehaviour
 
     public void ToStage()
     {
-        GameManager.Instance.status = GameManager.Status.Stage;
+        GameManager.Instance.SetScreen(GameManager.Status.Stage);
         SceneManager.LoadScene("Stage");
     }
 
     public void NextStage()
     {
-        if(GameManager.Instance.stage == GameManager.Stage.Winter || GameManager.Instance.stage == GameManager.Stage.TowerBridge)
+        if(Selection.Stage == GameManager.Stage.Winter || Selection.Stage == GameManager.Stage.TowerBridge)
             next_btn.enabled = false;
         else
-            GameManager.Instance.stage++;
-        timer.value = 10f;
-        GameManager.Instance.NextPuzzle();
+            Selection.Stage++;
+        TryAgain();
     }
 
     public void TryAgain()
     {
-        timer.value = 10f;
         GameManager.Instance.NextPuzzle();
     }
 
     public void GameStart()
     {
-        GameManager.Instance.status = GameManager.Status.Topic;
+        GameManager.Instance.SetScreen(GameManager.Status.Topic);
         SceneManager.LoadScene("Topic");
     }
 
@@ -50,15 +52,15 @@ public class UI : MonoBehaviour
 
     public void Topic()
     {
-        GameManager.Instance.SetTopic(EventSystem.current.currentSelectedGameObject.name);
-        GameManager.Instance.status = GameManager.Status.Stage;
+        Selection.SetTopic(EventSystem.current.currentSelectedGameObject.name);
+        GameManager.Instance.SetScreen(GameManager.Status.Stage);
         SceneManager.LoadScene("Stage");
     }
 
     public void BackToMain()
     {
-        SceneManager.LoadScene("Main");
+        ToMain();
     }
 
-    
+
 }

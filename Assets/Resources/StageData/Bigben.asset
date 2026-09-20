@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a5d87b5e414446894bfba1bc55d742, type: 3}
+  m_Name: Bigben
+  m_EditorClassIdentifier:
+  stage: 5
+  topic: 1
+  timeLimitSeconds: 20
+  timeBonusSeconds: 5
+  pointsPerPiece: 50
+  initialCameraPosition: {x: 0.3, y: 2, z: -3}
+  initialCameraEulerAngles: {x: 32, y: 0, z: 0}
+  rotationSpeedDegreesPerSecond: 60
+  snapDistancePixels: 90
+  previewImage: {fileID: 21300000, guid: a001d12e8c166a74b8663944bc3d9c77, type: 3}
+  groundPrefab: {fileID: 7554824448839645914, guid: a0a1d4e6aa874f74aaf76999f1faae92, type: 3}

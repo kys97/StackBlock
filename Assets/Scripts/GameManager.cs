@@ -3,90 +3,88 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public enum Status { Topic, Stage, Puzzle }
-    public enum Topic { Weather, Structure }
-    public enum Stage { Spring, Summer, Desert, Fall, Winter, Bigben, Egypt, OperaHouse, TowerBridge }
+    public enum Topic { Weather = 0, Structure = 1 }
+    public enum Stage { Spring = 0, Summer = 1, Desert = 2, Fall = 3, Winter = 4, Bigben = 5, Egypt = 6, OperaHouse = 7, TowerBridge = 8 }
 
-    
-    public class Block
+    public sealed class Block
     {
-        public GameObject block, surface;
-        public Sprite ui;
+        public GameObject Object { get; }
+        public GameObject Surface { get; }
+        public Sprite Image { get; }
+        public Vector2 ScreenPosition { get; private set; }
+        public int Direction { get; }
+        public bool IsComplete { get; private set; }
 
-        public Vector2 pos;
-        public int dir;
-        public bool complete;
-        
-        public Block(GameObject b, GameObject s, Sprite u, Vector2 p, int d, bool c)
+        public Block(GameObject pieceObject, GameObject surface, Sprite image, Vector2 screenPosition, int direction, bool isComplete)
         {
-            block = b;
-            surface = s;
-            ui = u;
-            pos = p;
-            dir = d;
-            complete = c;
+            Object = pieceObject;
+            Surface = surface;
+            Image = image;
+            ScreenPosition = screenPosition;
+            Direction = direction;
+            IsComplete = isComplete;
         }
 
-        public void Position(Vector2 v) { pos = v; }
-        public void Complete(bool c) { complete = c; }
+        public void Position(Vector2 position) => ScreenPosition = position;
+        internal void Complete(bool isComplete) => IsComplete = isComplete;
     }
-    public Dictionary<string,Block> Puzzle = new Dictionary<string, Block>();
+    public readonly Dictionary<string,Block> Puzzle = new Dictionary<string, Block>();
 
 
-    //BGM
-    public AudioClip bgm; 
+    [SerializeField] private Status status;
+    public Status CurrentScreen => status;
+    public void SetScreen(Status screen) => status = screen;
+    [SerializeField, FormerlySerializedAs("topic")]
+    [Tooltip("Initial selection used only when creating GameSession. Live selection belongs to GameSession.")]
+    private Topic initialTopic;
+    [SerializeField, FormerlySerializedAs("stage")]
+    [Tooltip("Initial selection used only when creating GameSession. Live selection belongs to GameSession.")]
+    private Stage initialStage;
+    private GameSession session;
 
-    //카메라 위치 상수
-    public Vector3 weather_campos;
-    public float weather_camrot;
-    public Vector3 structure_campos;
-    public float structure_camrot;
+    public GameSession Session => session != null ? session : (session = GameSession.GetOrCreate(initialTopic, initialStage));
 
+    public StageData CurrentStageData => Session.CurrentStageData;
 
-    //게임 상황 변수
-    public Status status;
-    //주제 변수
-    public Topic topic;
-    public void SetTopic(string n) { topic = (Topic)System.Enum.Parse(typeof(Topic), n); }
-    //스테이지 변수
-    public Stage stage;
+    [SerializeField] private int score;
+    public int Score => score;
+    [SerializeField, FormerlySerializedAs("playing_time")] private float playingTime;
+    public float PlayingTime => playingTime;
+    [SerializeField] private bool success;
+    public bool IsSuccessful => success;
+    [SerializeField, FormerlySerializedAs("puz_num")] private int totalPieceCount;
+    public int TotalPieceCount => totalPieceCount;
+    [SerializeField, FormerlySerializedAs("comlete_num")] private int completedPieceCount;
+    public int CompletedPieceCount => completedPieceCount;
+    public event System.Action<int> PieceCompleted;
+    private void NotifyPieceCompleted() => PieceCompleted?.Invoke(completedPieceCount);
+    private PuzzleCameraController puzzleCamera;
+    public int CurrentDirection => puzzleCamera != null ? puzzleCamera.CurrentDirection : 0;
+    public void BindCamera(PuzzleCameraController controller) => puzzleCamera = controller;
+    [SerializeField] private bool start = false;
+    public bool HasStarted => start;
+    [SerializeField] private GameObject click_ui_prefab;
+    [SerializeField] private GameObject contents;
+    public GameObject PieceContent => contents;
+    [SerializeField] private GameObject move_canvas;
+    public GameObject DragCanvas => move_canvas;
 
+    [SerializeField] private GameObject block_parent;
+    public GameObject BlockParent => block_parent;
+    [SerializeField] private GameObject ground;
+    public GameObject Ground => ground;
+    public void BindPuzzleScene(GameObject pieceContent, GameObject blockParent, GameObject dragCanvas)
+    {
+        contents = pieceContent;
+        block_parent = blockParent;
+        move_canvas = dragCanvas;
+    }
 
-    //점수 변수
-    public int score;
-    //총 걸린 시간 변수
-    public float playing_time;
-    //퍼즐 성공 여부 변수
-    public bool success;
-
-
-    //블록 갯수 변수
-    public int puz_num;
-    public int comlete_num;
-    //선택된 블록 변수
-    public string drag_block_id;
-    //카메라 방향 변수
-    public int camera_dir = 0;
-    //거리 변수
-    public float block_distance;
-    //퍼즐 생성 완료 변수
-    public bool start = false;
-
-
-    //프리펩 생성 변수
-    public GameObject click_ui_prefab;
-    public GameObject contents;
-    public GameObject move_canvas;
-    public GameObject[] ready = new GameObject[4];
-
-    public GameObject block_parent;//퍼즐
-    [HideInInspector]public GameObject ground;//땅
-
-
-    //싱글톤
     private static GameManager _instance;
     public static GameManager Instance
     {
@@ -94,10 +92,8 @@ public class GameManager : MonoBehaviour
         {
             if (!_instance)
             {
-                _instance = FindObjectOfType(typeof(GameManager)) as GameManager;
+                _instance = FindAnyObjectByType<GameManager>();
 
-                if (_instance == null)
-                    Debug.Log("no Singleton obj");
             }
             return _instance;
         }
@@ -107,40 +103,58 @@ public class GameManager : MonoBehaviour
         if (_instance == null)
             _instance = this;
         else if (_instance != this)
+        {
             Destroy(gameObject);
+            return;
+        }
+        session = Session;
         DontDestroyOnLoad(gameObject);
     }
 
 
-    // Update is called once per frame
     void Update()
     {
         if (start)
         {
-            playing_time += Time.deltaTime;
+            playingTime += Time.deltaTime;
         }
     }
 
-    public void SetStage(string s)
-    {
-        stage = (Stage)System.Enum.Parse(typeof(Stage), s);
-    }
 
-
-    public void BlockComplete()
+    private void BlockComplete()
     {
         success = true;
-        score -= (int)playing_time; 
+        start = false;
+        score -= (int)playingTime;
+        PuzzleSucceeded?.Invoke();
+    }
+
+    public event System.Action PuzzleSucceeded;
+    public bool CanAcceptInput => start && !success;
+
+    public bool TryCompletePiece(string key, Vector2 dropPosition)
+    {
+        if (!CanAcceptInput || !Puzzle.TryGetValue(key, out Block piece) || piece.IsComplete
+            || !piece.Surface.activeInHierarchy || piece.Direction != CurrentDirection
+            || Vector2.Distance(piece.ScreenPosition, dropPosition) > CurrentStageData.SnapDistancePixels)
+            return false;
+
+        piece.Complete(true);
+        piece.Object.SetActive(true);
+        completedPieceCount++;
+        score += CurrentStageData.PointsPerPiece;
+        NotifyPieceCompleted();
+        if (completedPieceCount == totalPieceCount) BlockComplete();
+        return true;
     }
 
     public void BlockFail()
     {
         start = false;
-        success = false; 
+        success = false;
     }
 
-
-    private int Cal_Dir(string n)
+    private int GetSpriteDirection(string n)
     {
         n = n.Substring(n.Length - 1, 1);
         switch (n)
@@ -153,124 +167,172 @@ public class GameManager : MonoBehaviour
         return -1;
     }
 
-    public void Cal_Pos()
+    public void RecalculatePlacementPositions()
     {
+        Camera camera = puzzleCamera != null ? puzzleCamera.ControlledCamera : Camera.main;
+        if (camera == null) return;
         foreach (KeyValuePair<string, Block> p in Puzzle)
         {
-            if(!(p.Value.complete))
-                if (p.Value.dir == camera_dir)
-                    p.Value.Position(Camera.main.WorldToScreenPoint(p.Value.block.transform.position));
+            if(!(p.Value.IsComplete))
+                if (p.Value.Direction == CurrentDirection)
+                    p.Value.Position(camera.WorldToScreenPoint(p.Value.Object.transform.position));
                 else
                     p.Value.Position(new Vector2(-3000, -3000));
         }
     }
 
+    private Coroutine readyCountdown;
+    private GameObject countdownPanel;
+    private Image countdownImage;
+    private Sprite[] countdownSprites;
+
+    public void ConfigureCountdown(GameObject panel, Image numberImage)
+    {
+        if (panel == null || numberImage == null)
+            throw new System.InvalidOperationException("StageLoad requires a countdown panel and number image.");
+
+        countdownPanel = panel;
+        countdownImage = numberImage;
+        countdownSprites = new Sprite[3];
+        for (int i = 0; i < countdownSprites.Length; i++)
+        {
+            countdownSprites[i] = Resources.Load<Sprite>("UI/Number/" + (3 - i));
+            if (countdownSprites[i] == null)
+                throw new System.InvalidOperationException("Missing countdown sprite: UI/Number/" + (3 - i));
+        }
+
+        countdownImage.sprite = countdownSprites[0];
+        countdownPanel.SetActive(true);
+    }
 
     public void StartPuzzle()
     {
-        //변수 초기화
-        playing_time = 0f;
+        ResetPuzzleState();
+        LoadPuzzleBlocks();
+        HideDependentSurfaces();
+        CreateGround();
+    }
+
+    private void ResetPuzzleState()
+    {
+        CancelReadyCountdown();
+        start = false;
+        success = false;
+        playingTime = 0f;
         score = 0;
-        puz_num = 0;
-        comlete_num = 0;
-        drag_block_id = null;
-        camera_dir = 0;
+        totalPieceCount = 0;
+        completedPieceCount = 0;
+
         ground = null;
-        //블록 리스트 초기화
         Puzzle.Clear();
+    }
 
+    private void LoadPuzzleBlocks()
+    {
+        string resourcePath = "Puzzle/" + Session.Stage;
+        Sprite[] sprites = Resources.LoadAll<Sprite>(resourcePath);
+        GameObject[] parts = Resources.LoadAll<GameObject>(resourcePath);
+        totalPieceCount = sprites.Length;
+        Camera puzzleCamera = Camera.main;
 
-        //UI 이미지 로드
-        Sprite[] sprites = Resources.LoadAll<Sprite>("Puzzle/" + stage.ToString());
-        //블록 프리펩 로드
-        GameObject[] parts = Resources.LoadAll<GameObject>("Puzzle/" + stage.ToString());
-        puz_num = sprites.Length;
-
-        //Dictionary에 추가
+        // Preserve the existing resource ordering and prefab hierarchy contract.
         for (int i = 0; i < sprites.Length; i++)
         {
-            //UI 생성
-            click_ui_prefab.GetComponent<Image>().sprite = sprites[i];
-            GameObject temp_ui = Instantiate<GameObject>(click_ui_prefab, contents.transform);
-            temp_ui.GetComponent<BlockUI>().SetKey(parts[i].name);
-            //블록 생성
-            GameObject temp_block = Instantiate<GameObject>(parts[i]);
-            temp_block.transform.SetParent(block_parent.transform, false);
-            //하위 블록
-            GameObject temp_obj = temp_block.transform.Find("object").gameObject;
-            GameObject temp_surf = temp_block.transform.Find("surface").gameObject;
-            temp_obj.AddComponent<BlockObj>().SetKey(parts[i].name);
-            temp_surf.AddComponent<Surface>().SetKey(parts[i].name);
-            temp_obj.SetActive(false);
-            //화면 위치 계산
-            Vector2 temp_pos = Camera.main.WorldToScreenPoint(temp_surf.transform.position);
-            //방향 변수 계산
-            int temp_dir = Cal_Dir(sprites[i].name);
-
-            //퍼즐 추가
-            Puzzle.Add(parts[i].name, new Block(temp_obj, temp_surf, sprites[i], temp_pos, temp_dir, false));
+            CreateBlockUI(parts[i].name, sprites[i]);
+            CreatePuzzleBlock(parts[i], sprites[i], puzzleCamera);
         }
-
-        //필요없는 바닥면 안보이게
-        foreach(KeyValuePair<string, Block> p in Puzzle)
-        {
-            int n = p.Value.block.transform.childCount;
-            if (n > 0)
-                for (int i = 0; i < n; i++)
-                {
-                    string s = p.Value.block.transform.GetChild(i).name;
-                    Debug.Log(s);
-                    Puzzle[p.Value.block.transform.GetChild(i).name].surface.SetActive(false);
-                    Puzzle[p.Value.block.transform.GetChild(i).name].Position(new Vector2(-3000, -3000));
-                }
-        }
-
-        //땅 생성
-        ground = Instantiate<GameObject>(Resources.Load<GameObject>("Ground/" + stage.ToString()));
-        ground.transform.SetParent(block_parent.transform, false);
-        
-        //ReadyCount();
     }
 
-    IEnumerator ReadyCount()
+    private void CreateBlockUI(string key, Sprite sprite)
     {
-        for (int i = 0; i < 4; i++)
-        {
-
-            yield return new WaitForSeconds(1f);
-        }
-        start = true;
-        yield break;
+        GameObject blockUI = Instantiate(click_ui_prefab, contents.transform);
+        blockUI.GetComponent<Image>().sprite = sprite;
+        blockUI.GetComponent<BlockUI>().SetKey(key);
     }
 
-    /*
+    private void CreatePuzzleBlock(GameObject prefab, Sprite sprite, Camera puzzleCamera)
+    {
+        GameObject instance = Instantiate(prefab);
+        instance.transform.SetParent(block_parent.transform, false);
+
+        GameObject block = instance.transform.Find("object").gameObject;
+        GameObject surface = instance.transform.Find("surface").gameObject;
+        block.AddComponent<BlockObj>().SetKey(prefab.name);
+        surface.AddComponent<Surface>().SetKey(prefab.name);
+        block.SetActive(false);
+
+        Vector2 position = puzzleCamera.WorldToScreenPoint(surface.transform.position);
+        Puzzle.Add(prefab.name, new Block(block, surface, sprite, position, GetSpriteDirection(sprite.name), false));
+    }
+
+    private void HideDependentSurfaces()
+    {
+        foreach (Block block in Puzzle.Values)
+        {
+            foreach (Transform child in block.Object.transform)
+            {
+                Block dependentBlock = Puzzle[child.name];
+                dependentBlock.Surface.SetActive(false);
+                dependentBlock.Position(new Vector2(-3000, -3000));
+            }
+        }
+    }
+
+    private void CreateGround()
+    {
+        ground = Instantiate(CurrentStageData.GroundPrefab);
+        ground.transform.SetParent(block_parent.transform, false);
+    }
+
     public void ReadyCount()
     {
-        //카운트 다운 애니메이션
+        if (start || readyCountdown != null)
+            return;
 
+        readyCountdown = StartCoroutine(CountDownToStart());
+    }
 
+    private IEnumerator CountDownToStart()
+    {
+        // The manager survives scene changes; do not start a puzzle after leaving it.
+        Scene puzzleScene = SceneManager.GetActiveScene();
+        for (int i = 0; i < countdownSprites.Length; i++)
+        {
+            countdownImage.sprite = countdownSprites[i];
+            yield return new WaitForSeconds(1f);
+            if (SceneManager.GetActiveScene() != puzzleScene || countdownPanel == null || countdownImage == null)
+            {
+                readyCountdown = null;
+                yield break;
+            }
+        }
 
-
-
-        //BGM 설정
-        bgm = Resources.Load<AudioClip>("BGM/" + stage.ToString());
-        GetComponent<AudioSource>().loop = true;
-        GetComponent<AudioSource>().clip = bgm;
-        GetComponent<AudioSource>().Play();
-
-        //퍼즐 조립 시작
-        start = true;
+        countdownPanel.SetActive(false);
         success = false;
-    }*/
+        start = true;
+        readyCountdown = null;
+    }
+
+    private void CancelReadyCountdown()
+    {
+        if (countdownPanel != null)
+            countdownPanel.SetActive(false);
+
+        if (readyCountdown == null)
+            return;
+
+        StopCoroutine(readyCountdown);
+        readyCountdown = null;
+    }
+
+    private void OnDisable()
+    {
+        CancelReadyCountdown();
+    }
 
     public void NextPuzzle()
     {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void EndTopic()
-    {
-        //주제 끝났다는 UI
-        //주제 선택창으로 돌아가기 버튼
-    }
 }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a5d87b5e414446894bfba1bc55d742, type: 3}
+  m_Name: Fall
+  m_EditorClassIdentifier:
+  stage: 3
+  topic: 0
+  timeLimitSeconds: 20
+  timeBonusSeconds: 5
+  pointsPerPiece: 50
+  initialCameraPosition: {x: 0.22, y: 1.5, z: -3}
+  initialCameraEulerAngles: {x: 23, y: 0, z: 0}
+  rotationSpeedDegreesPerSecond: 60
+  snapDistancePixels: 90
+  previewImage: {fileID: 21300000, guid: 257b66667a7560f489dd7a369dcad716, type: 3}
+  groundPrefab: {fileID: 5653319948892315076, guid: 06ebf9b0016e6f04f81f7301c7f011db, type: 3}

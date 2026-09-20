@@ -1,33 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Surface : MonoBehaviour
 {
-    [SerializeField]private string key;
+    [SerializeField] private string key;
+    private GameManager owner;
 
-    private PointMove pointMove;
-    private bool update_pos;
-
-    void Start()
+    public void SetKey(string n)
     {
-        pointMove = GameObject.Find("cameraPoint").GetComponent<PointMove>();
+        key = n;
+        owner = GameManager.Instance;
+    }
+
+    private bool TryGetBlock(out GameManager.Block block)
+    {
+        block = null;
+        // Enable can precede SetKey; disable can follow owner destruction.
+        // Never search for a replacement owner during scene teardown.
+        return owner != null && owner.HasStarted && key != null
+            && owner.Puzzle.TryGetValue(key, out block) && block != null
+            && block.Surface == gameObject;
     }
 
     private void OnEnable()
     {
-        if (GameManager.Instance.start)
-            if (GameManager.Instance.camera_dir == GameManager.Instance.Puzzle[key].dir)
-                GameManager.Instance.Puzzle[key].Position(Camera.main.WorldToScreenPoint(GameManager.Instance.Puzzle[key].block.transform.position));
-            else
-                GameManager.Instance.Puzzle[key].Position(new Vector2(-3000, -3000));
-    }
-    private void OnDisable()
-    {
-        if(GameManager.Instance.start)
-            GameManager.Instance.Puzzle[key].Position(new Vector2(-3000, -3000));
+        if (!TryGetBlock(out GameManager.Block block))
+            return;
+
+        Camera puzzleCamera = Camera.main;
+        if (owner.CurrentDirection == block.Direction && puzzleCamera != null && block.Object != null)
+            block.Position(puzzleCamera.WorldToScreenPoint(block.Object.transform.position));
+        else
+            block.Position(new Vector2(-3000, -3000));
     }
 
-    public void SetKey(string n) { key = n; }
+    private void OnDisable()
+    {
+        if (TryGetBlock(out GameManager.Block block))
+            block.Position(new Vector2(-3000, -3000));
+    }
 }

@@ -1,116 +1,127 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
+
 using UnityEngine.SceneManagement;
 
 public class StageLoad : MonoBehaviour
 {
-    public bool btn_click = false;
-    public GameObject left_cloud;
-    public GameObject right_cloud;
-    
+    [SerializeField] private GameObject countdownPanel;
+    [SerializeField] private Image countdownImage;
+    [SerializeField] private Timer puzzleTimerUI;
+    [SerializeField] private PuzzleCameraController puzzleCamera;
 
-    public GameObject stage_btn_prefab;
-    public GameObject contents;
+    private bool isStageSelected;
+    public bool IsStageSelected => isStageSelected;
+    private GameManager owner;
+    private RectTransform leftCloudRect;
+    private RectTransform rightCloudRect;
+    [SerializeField] private GameObject left_cloud;
+    public GameObject LeftCloud => left_cloud;
+    [SerializeField] private GameObject right_cloud;
+    public GameObject RightCloud => right_cloud;
 
-    public GameObject block_par;
-    public GameObject move_can;
+    [SerializeField] private GameObject stage_btn_prefab;
+    [SerializeField] private GameObject contents;
 
-    public GameObject success_P;
-    public GameObject score_contents;
-    public GameObject score_prefab;
+    [SerializeField] private GameObject block_par;
+    [SerializeField] private GameObject move_can;
 
-    // Start is called before the first frame update
+    [SerializeField] private GameObject success_P;
+    public GameObject SuccessPanel => success_P;
+    [SerializeField] private GameObject score_contents;
+    [SerializeField] private GameObject score_prefab;
+
     void Start()
     {
-        if(GameManager.Instance.status == GameManager.Status.Stage)//스테이지 선택 화면
+        owner = GameManager.Instance;
+        leftCloudRect = left_cloud != null ? left_cloud.GetComponent<RectTransform>() : null;
+        rightCloudRect = right_cloud != null ? right_cloud.GetComponent<RectTransform>() : null;
+        GameSession session = owner.Session;
+        if(owner.CurrentScreen == GameManager.Status.Stage)
         {
-            Sprite[] sprites = Resources.LoadAll<Sprite>("UI/" + GameManager.Instance.topic.ToString());
+            Sprite[] sprites = Resources.LoadAll<Sprite>("UI/" + session.Topic.ToString());
             for (int i = 0; i < sprites.Length; i++)
             {
-                //UI 생성
-                stage_btn_prefab.GetComponent<Image>().sprite = sprites[i];
-                GameObject temp_ui = Instantiate<GameObject>(stage_btn_prefab, contents.transform);
-                temp_ui.name = sprites[i].name.Substring(1, sprites[i].name.Length - 1);
-                temp_ui.GetComponent<Button>().onClick.AddListener(delegate ()
+
+                GameObject stageButton = Instantiate(stage_btn_prefab, contents.transform);
+                stageButton.GetComponent<Image>().sprite = sprites[i];
+                stageButton.name = sprites[i].name.Substring(1, sprites[i].name.Length - 1);
+                stageButton.GetComponent<Button>().onClick.AddListener(delegate ()
                 {
-                    btn_click = true;
-                    GameObject click_btn = EventSystem.current.currentSelectedGameObject;
-                    GameManager.Instance.SetStage(click_btn.name);
+                    isStageSelected = true;
+
+                    session.SetStage(stageButton.name);
                 });
             }
         }
-        else if(GameManager.Instance.status == GameManager.Status.Puzzle)//퍼즐 화면
+        else if(owner.CurrentScreen == GameManager.Status.Puzzle)
         {
-            GameManager.Instance.contents = contents;
-            GameManager.Instance.block_parent = block_par;
-            GameManager.Instance.move_canvas = move_can;
-            if (GameManager.Instance.topic == GameManager.Topic.Weather)
-            {
-                Camera.main.transform.position = GameManager.Instance.weather_campos;
-                Camera.main.transform.localEulerAngles = new Vector3(GameManager.Instance.weather_camrot,0,0);
-            }
-            else if (GameManager.Instance.topic == GameManager.Topic.Structure)
-            {
-                Camera.main.transform.position = GameManager.Instance.structure_campos;
-                Camera.main.transform.localEulerAngles = new Vector3(GameManager.Instance.structure_camrot,0,0);
-            }
-            GameManager.Instance.StartPuzzle();
+            owner.BindPuzzleScene(contents, block_par, move_can);
+            StageData stageData = session.CurrentStageData;
+            puzzleCamera.ApplyInitialPose(stageData);
+            owner.StartPuzzle();
+            puzzleCamera.Initialize(stageData, owner.Ground.transform, owner);
+            puzzleTimerUI.Initialize(owner, stageData);
+            owner.ConfigureCountdown(countdownPanel, countdownImage);
+            owner.PuzzleSucceeded += ShowSuccess;
         }
+    }
+
+    // Includes the full child-image bounds (up to 2371 units from the root).
+    private const float CloudOpenPosition = 2600f;
+    private const float CloudClosedPosition = 480f;
+    private const float CloudSpeed = 1000f;
+
+    private bool MoveClouds(float leftX, float rightX)
+    {
+        RectTransform left = leftCloudRect;
+        RectTransform right = rightCloudRect;
+        Vector2 leftTarget = new Vector2(leftX, 0f);
+        Vector2 rightTarget = new Vector2(rightX, 0f);
+        float step = CloudSpeed * Time.deltaTime;
+        left.anchoredPosition = Vector2.MoveTowards(left.anchoredPosition, leftTarget, step);
+        right.anchoredPosition = Vector2.MoveTowards(right.anchoredPosition, rightTarget, step);
+        return left.anchoredPosition == leftTarget && right.anchoredPosition == rightTarget;
     }
 
     private void Update()
     {
-        if (GameManager.Instance.status == GameManager.Status.Stage && btn_click)//스테이지 선택 화면
+        if (owner.CurrentScreen == GameManager.Status.Stage && isStageSelected)
         {
-            if (left_cloud.GetComponent<RectTransform>().anchoredPosition.x <= -480 || right_cloud.GetComponent<RectTransform>().anchoredPosition.x >= 480)
+            if (MoveClouds(-CloudClosedPosition, CloudClosedPosition))
             {
-                left_cloud.transform.Translate(Vector3.right * Time.deltaTime * 1000);
-                right_cloud.transform.Translate(Vector3.left * Time.deltaTime * 1000);
-            }
-            else if(left_cloud.GetComponent<RectTransform>().anchoredPosition.x >= -480 || right_cloud.GetComponent<RectTransform>().anchoredPosition.x <= 480)
-            {
-                left_cloud.GetComponent<RectTransform>().anchoredPosition = new Vector3(-480, 0, 0);
-                right_cloud.GetComponent<RectTransform>().anchoredPosition = new Vector3(480, 0, 0);
-                GameManager.Instance.status = GameManager.Status.Puzzle;
+                owner.SetScreen(GameManager.Status.Puzzle);
                 SceneManager.LoadScene("Puzzle");
             }
         }
-        else if (GameManager.Instance.status == GameManager.Status.Puzzle)
+        else if (owner.CurrentScreen == GameManager.Status.Puzzle)
         {
-            if(left_cloud != null && right_cloud != null)
-                if (left_cloud.GetComponent<RectTransform>().anchoredPosition.x >= -1920 || right_cloud.GetComponent<RectTransform>().anchoredPosition.x <= 1920)
-                {
-                    left_cloud.transform.Translate(Vector3.left * Time.deltaTime * 1000);
-                    right_cloud.transform.Translate(Vector3.right * Time.deltaTime * 1000);
-                }
-                else if (left_cloud.GetComponent<RectTransform>().anchoredPosition.x <= -1920 || right_cloud.GetComponent<RectTransform>().anchoredPosition.x >= 1920)
-                {
-                    Destroy(left_cloud);
-                    Destroy(right_cloud);
-                    left_cloud = null;
-                    right_cloud = null;
-                    //카운트 다운 시작
-                    GameManager.Instance.ReadyCount();
-                }
-
-            if (GameManager.Instance.success && GameManager.Instance.start)
+            if (left_cloud != null && right_cloud != null
+                && MoveClouds(-CloudOpenPosition, CloudOpenPosition))
             {
-                success_P.SetActive(true);
-                GameManager.Instance.start = false;
-                //점수 표시
-                Sprite[] sprites = Resources.LoadAll<Sprite>("UI/Number");
-                string s = GameManager.Instance.score.ToString();
-                for (int i = 0; i < s.Length; i++)
-                {
-                    Debug.Log(int.Parse(s.Substring(i, 1)));
-                    score_prefab.GetComponent<Image>().sprite = sprites[int.Parse(s.Substring(i, 1))];
-                    Instantiate<GameObject>(score_prefab, score_contents.transform);
-                }
-
+                Destroy(left_cloud);
+                Destroy(right_cloud);
+                left_cloud = null;
+                right_cloud = null;
+                owner.ReadyCount();
             }
+
         }
+    }
+    private void ShowSuccess()
+    {
+        success_P.SetActive(true);
+        Sprite[] digits = Resources.LoadAll<Sprite>("UI/Number");
+        foreach (char digit in owner.Score.ToString())
+        {
+
+            GameObject scoreDigit = Instantiate(score_prefab, score_contents.transform);
+            scoreDigit.GetComponent<Image>().sprite = digits[int.Parse(digit.ToString())];
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (owner != null) owner.PuzzleSucceeded -= ShowSuccess;
     }
 }

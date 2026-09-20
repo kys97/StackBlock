@@ -1,110 +1,82 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler ,IDropHandler
+public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    [SerializeField]private string key;
-   
-    public GameObject move_prefab;
+    [SerializeField] private string key;
+    [SerializeField] private GameObject move_prefab;
+    private GameManager owner;
+    private Image dragImage;
+    private Coroutine pulse;
+    private bool isValidPlacement;
 
-    GameObject move_image;
-
-    private bool complete = false;
-
-
-    public void SetKey(string n) { key = n; }
-
-    private Vector2 SetSizeNorm(Vector2 size, float n)
-    {
-        float stand = size.x;
-        if (size.y > size.x) stand = size.y;
-        size /= stand;
-        return size * n;
-    }
-
-    IEnumerator FadeInOut()
-    {
-        float f = 0.1f;
-        Color color = move_image.GetComponent<Image>().color;
-        while (true)
-        {
-            if (color.a <= 0.2f || color.a >= 1.0f)
-                f *= -1.0f;
-            color.a += f;
-            move_image.GetComponent<Image>().color = color;
-            yield return new WaitForSeconds(0.07f);
-        }
-    }
-
+    public void SetKey(string pieceKey) => key = pieceKey;
 
     private void Start()
     {
-        transform.localScale = SetSizeNorm(GameManager.Instance.Puzzle[key].ui.bounds.size, 1);
+        owner = GameManager.Instance;
+        Vector2 size = owner.Puzzle[key].Image.bounds.size;
+        transform.localScale = size / Mathf.Max(size.x, size.y);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //드래그 중인 퍼즐 key
-        GameManager.Instance.drag_block_id = key;
-
-        //moveImage 새로 생성
-        GameManager.Instance.move_canvas.SetActive(true);
-        move_prefab.GetComponent<Image>().sprite = GameManager.Instance.Puzzle[key].ui;
-        move_image = Instantiate<GameObject>(move_prefab, GameManager.Instance.move_canvas.transform);
-        move_image.transform.position = transform.position;
+        if (owner == null || !owner.CanAcceptInput || owner.Puzzle[key].IsComplete || dragImage != null) return;
+        owner.DragCanvas.SetActive(true);
+        dragImage = Instantiate(move_prefab, owner.DragCanvas.transform).GetComponent<Image>();
+        dragImage.sprite = owner.Puzzle[key].Image;
+        dragImage.transform.position = transform.position;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        move_image.transform.position = eventData.position;
-        move_image.transform.localScale = transform.localScale;
-        float d = Vector2.Distance(GameManager.Instance.Puzzle[key].pos, move_image.transform.position);
-        Debug.Log(d);
-        if(GameManager.Instance.Puzzle[key].dir == GameManager.Instance.camera_dir)
-            if (d <= GameManager.Instance.block_distance && !complete)
-            {
-                StartCoroutine("FadeInOut");
-                complete = true;
-            }
-            else if(d >= GameManager.Instance.block_distance && complete)
-            {
-                StopCoroutine("FadeInOut");
-                Color color = move_image.GetComponent<Image>().color;
-                color.a = 1.0f;
-                move_image.GetComponent<Image>().color = color;
-                complete = false;
-            }
+        if (dragImage == null) return;
+        if (!owner.CanAcceptInput) { ClearDrag(); return; }
+        dragImage.transform.position = eventData.position;
+        dragImage.transform.localScale = transform.localScale;
+        GameManager.Block piece = owner.Puzzle[key];
+        bool valid = !piece.IsComplete && piece.Surface.activeInHierarchy
+            && piece.Direction == owner.CurrentDirection
+            && Vector2.Distance(piece.ScreenPosition, eventData.position) <= owner.CurrentStageData.SnapDistancePixels;
+        if (valid == isValidPlacement) return;
+        isValidPlacement = valid;
+        if (pulse != null) StopCoroutine(pulse);
+        pulse = valid ? StartCoroutine(PulseDragImage()) : null;
+        if (!valid) { Color color = dragImage.color; color.a = 1f; dragImage.color = color; }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (complete)
-        {
-            GameManager.Instance.Puzzle[key].block.SetActive(true);
-            GameManager.Instance.comlete_num++;
-            GameManager.Instance.score += 50;
-            Destroy(move_image.gameObject);
-            move_image = null;
-            Destroy(gameObject);
-
-            if (GameManager.Instance.comlete_num == GameManager.Instance.puz_num)
-            {
-                GameManager.Instance.BlockComplete();
-            }
-        }
-        else
-        {
-            Destroy(move_image.gameObject);
-            move_image = null;
-        }
+        if (dragImage == null) return;
+        // Rotation or expiry can occur during a drag, so validate its final position again.
+        bool placed = owner != null && owner.TryCompletePiece(key, eventData.position);
+        ClearDrag();
+        if (placed) Destroy(gameObject);
     }
 
-    public void OnDrop(PointerEventData eventData)
+    private IEnumerator PulseDragImage()
     {
-
+        float step = 0.1f;
+        Color color = dragImage.color;
+        while (true)
+        {
+            if (color.a <= 0.2f || color.a >= 1f) step *= -1f;
+            color.a += step;
+            dragImage.color = color;
+            yield return new WaitForSeconds(0.07f);
+        }
     }
 
+    private void ClearDrag()
+    {
+        if (pulse != null) StopCoroutine(pulse);
+        pulse = null;
+        isValidPlacement = false;
+        if (dragImage != null) Destroy(dragImage.gameObject);
+        dragImage = null;
+    }
+
+    private void OnDisable() => ClearDrag();
 }

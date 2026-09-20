@@ -1,19 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
 public class Sound : MonoBehaviour
 {
-    public AudioMixer Mixer;
-    public Sprite mute;
-    public Sprite sound;
-    public Button mute_btn;
-    public Slider vol_slide;
+    [SerializeField] private AudioMixer Mixer;
+    [SerializeField] private Sprite mute;
+    [SerializeField] private Sprite sound;
+    [SerializeField] private Button mute_btn;
+    [SerializeField] private Slider vol_slide;
     [SerializeField]private float volume;
-    [SerializeField] private float max_volume = 0;
-    [SerializeField] private float min_volume = -80;
 
     private static Sound _instance;
     private void Awake()
