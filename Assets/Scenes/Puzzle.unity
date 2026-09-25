@@ -20,12 +20,12 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.4, g: 0.43, b: 0.49, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.32, g: 0.35, b: 0.375, a: 1}
   m_AmbientGroundColor: {r: 0.2, g: 0.183, b: 0.149, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 1
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -542,7 +542,6 @@ MonoBehaviour:
   countdownImage: {fileID: 360236111}
   puzzleTimerUI: {fileID: 1927446307}
   puzzleCamera: {fileID: 381959728}
-  btn_click: 0
   left_cloud: {fileID: 1696061148}
   right_cloud: {fileID: 87337545}
   stage_btn_prefab: {fileID: 0}
@@ -564,7 +563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc2367caf4694f42867496cb4c9ccfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: {fileID: 1927446306}
   next_btn: {fileID: 143164269}
 --- !u!114 &293367988
 MonoBehaviour:
@@ -613,18 +611,18 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize2D: {x: 10, y: 10}
+  m_CookieSize2D: {x: 50, y: 50}
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.65
-    m_Bias: 0.05
+    m_Strength: 0
+    m_Bias: 2
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
@@ -653,7 +651,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -676,13 +674,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326236542}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 5, z: 2}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &360236108
 GameObject:
   m_ObjectHideFlags: 0
@@ -3343,7 +3341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bed681ada80c343839fa8a5c3f3a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fail_pan: {fileID: 579398000}
+  failurePanel: {fileID: 579398000}
 --- !u!1 &1937172567
 GameObject:
   m_ObjectHideFlags: 0
