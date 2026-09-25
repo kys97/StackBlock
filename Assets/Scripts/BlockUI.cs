@@ -17,6 +17,7 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
     private void Start()
     {
         owner = GameManager.Instance;
+        owner.PauseChanged += OnPauseChanged;
         Vector2 size = owner.Puzzle[key].Image.bounds.size;
         transform.localScale = size / Mathf.Max(size.x, size.y);
     }
@@ -74,9 +75,27 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         if (pulse != null) StopCoroutine(pulse);
         pulse = null;
         isValidPlacement = false;
-        if (dragImage != null) Destroy(dragImage.gameObject);
+        if (dragImage != null)
+        {
+            dragImage.gameObject.SetActive(false);
+            Destroy(dragImage.gameObject);
+        }
         dragImage = null;
     }
 
-    private void OnDisable() => ClearDrag();
+    private void OnPauseChanged(bool paused)
+    {
+        if (paused) ClearDrag();
+    }
+
+    private void OnEnable()
+    {
+        if (owner != null) owner.PauseChanged += OnPauseChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (owner != null) owner.PauseChanged -= OnPauseChanged;
+        ClearDrag();
+    }
 }

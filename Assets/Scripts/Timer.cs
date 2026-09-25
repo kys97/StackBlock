@@ -65,7 +65,7 @@ public class Timer : MonoBehaviour
     private void Update()
     {
         if (Clock == null) return;
-        if (owner == null || owner.CurrentScreen != GameManager.Status.Puzzle || !owner.HasStarted || owner.IsSuccessful)
+        if (owner == null || owner.CurrentScreen != GameManager.Status.Puzzle || !owner.HasStarted || owner.IsSuccessful || owner.IsPaused)
         {
             Clock.Stop();
             return;

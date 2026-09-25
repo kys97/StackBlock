@@ -20,7 +20,6 @@ public class StageDataTests
             Assert.AreEqual(20f, data.TimeLimitSeconds);
             Assert.AreEqual(5f, data.TimeBonusSeconds);
             Assert.AreEqual(50, data.PointsPerPiece);
-            Assert.AreEqual(60f, data.RotationSpeedDegreesPerSecond);
             Assert.AreEqual(90f, data.SnapDistancePixels);
             Assert.AreEqual(weather ? new Vector3(0.22f, 1.5f, -3f) : new Vector3(0.3f, 2f, -3f), data.InitialCameraPosition);
             Assert.AreEqual(new Vector3(weather ? 23f : 32f, 0, 0), data.InitialCameraEulerAngles);

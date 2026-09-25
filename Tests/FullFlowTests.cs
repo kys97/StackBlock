@@ -22,7 +22,7 @@ public partial class FullFlowTests
         var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
         typeof(StageData).GetField("pointsPerPiece", flags).SetValue(testData, 73);
         typeof(StageData).GetField("snapDistancePixels", flags).SetValue(testData, 40f);
-        typeof(StageData).GetField("rotationSpeedDegreesPerSecond", flags).SetValue(testData, 120f);
+        TestState.Set(manager, "cameraRotationSpeed", 4);
         typeof(GameSession).GetField("currentStageData", flags).SetValue(manager.Session, testData);
         var cameraController = Camera.main.GetComponent<PuzzleCameraController>();
         cameraController.Initialize(testData, manager.Ground.transform, manager);
@@ -53,7 +53,7 @@ public partial class FullFlowTests
         Click("RotateRight");
         Quaternion beforeRotation = Camera.main.transform.rotation;
         typeof(PuzzleCameraController).GetMethod("AdvanceRotation", flags).Invoke(cameraController, new object[] { 1f / 60f });
-        Assert.That(Quaternion.Angle(beforeRotation, Camera.main.transform.rotation), Is.EqualTo(2f).Within(0.01f));
+        Assert.That(Quaternion.Angle(beforeRotation, Camera.main.transform.rotation), Is.EqualTo(6f).Within(0.01f));
         yield return WaitFor(() => !Object.FindFirstObjectByType<PuzzleCameraController>().IsRotating, "Configured rotation reaches target", 8f);
     }
 

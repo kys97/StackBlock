@@ -19,7 +19,6 @@ MonoBehaviour:
   pointsPerPiece: 50
   initialCameraPosition: {x: 0.3, y: 2, z: -3}
   initialCameraEulerAngles: {x: 32, y: 0, z: 0}
-  rotationSpeedDegreesPerSecond: 60
   snapDistancePixels: 90
   previewImage: {fileID: 21300000, guid: a8f2691b907626a449de14c49101e308, type: 3}
   groundPrefab: {fileID: 3996401670387057008, guid: 403fc3235c324ae41ac02af83c27db1f, type: 3}

@@ -21,6 +21,7 @@ public class PuzzleCameraTests
     {
         data = Object.Instantiate(Resources.Load<StageData>("StageData/Spring"));
         manager = new GameObject("Camera test owner").AddComponent<GameManager>();
+        TestState.Set(manager, "cameraRotationSpeed", 1);
         TestState.Set(manager, "start", true);
         pivot = new GameObject("Ground center");
         pivot.transform.position = new Vector3(0.1f, 0f, 0.2f);
@@ -87,19 +88,15 @@ public class PuzzleCameraTests
         Assert.That(Quaternion.Angle(Quaternion.Euler(data.InitialCameraEulerAngles), cameraObject.transform.rotation), Is.EqualTo(90f).Within(0.001f));
     }
 
-    [TestCase(30, 60f)]
-    [TestCase(60, 60f)]
-    [TestCase(144, 60f)]
-    [TestCase(30, 73.5f)]
-    [TestCase(144, 120f)]
-    public void RotationDurationUsesSecondsAtDifferentFrameRates(int fps, float speed)
+    [Test]
+    public void RotationDurationUsesSecondsAtDifferentFrameRates([Values(30, 60, 144)] int fps, [NUnit.Framework.Range(1, 10)] int speed)
     {
-        typeof(StageData).GetField("rotationSpeedDegreesPerSecond", Private).SetValue(data, speed);
+        TestState.Set(manager, "cameraRotationSpeed", speed);
         controller.RotateLeft();
         int frames = 0;
         while (controller.IsRotating && frames < 1000) { Advance(1f / fps); frames++; }
         Assert.IsFalse(controller.IsRotating);
-        Assert.That(frames / (float)fps, Is.EqualTo(90f / speed).Within(1f / fps + 0.0001f));
+        Assert.That(frames / (float)fps, Is.EqualTo(1f / speed).Within(1f / fps + 0.0001f));
         Assert.That(Quaternion.Angle(Quaternion.Euler(data.InitialCameraEulerAngles), cameraObject.transform.rotation), Is.EqualTo(90f).Within(0.001f));
     }
 

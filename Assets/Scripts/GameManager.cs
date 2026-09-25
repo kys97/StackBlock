@@ -51,6 +51,35 @@ public class GameManager : MonoBehaviour
 
     public StageData CurrentStageData => Session.CurrentStageData;
 
+    [Header("Camera Settings")]
+    [SerializeField, Range(1, 10)] private int cameraRotationSpeed = 3;
+    public int CameraRotationSpeed => Mathf.Clamp(cameraRotationSpeed, 1, 10);
+
+    public bool IsPaused { get; private set; }
+    public event System.Action<bool> PauseChanged;
+
+    public void PauseGame()
+    {
+        if (IsPaused || status != Status.Puzzle || !start || success) return;
+        IsPaused = true;
+        Time.timeScale = 0f;
+        PauseChanged?.Invoke(true);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        if (!IsPaused) return;
+        IsPaused = false;
+        PauseChanged?.Invoke(false);
+    }
+
+    public void TogglePause()
+    {
+        if (IsPaused) ResumeGame();
+        else PauseGame();
+    }
+
     [SerializeField] private int score;
     public int Score => score;
     [SerializeField, FormerlySerializedAs("playing_time")] private float playingTime;
@@ -108,13 +137,26 @@ public class GameManager : MonoBehaviour
             return;
         }
         session = Session;
+        ResumeGame();
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        if (_instance == this) SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (mode != LoadSceneMode.Single) return;
+        ResumeGame();
+        if (scene.name != "Puzzle") start = false;
     }
 
 
     void Update()
     {
-        if (start)
+        if (start && !IsPaused)
         {
             playingTime += Time.deltaTime;
         }
@@ -130,7 +172,7 @@ public class GameManager : MonoBehaviour
     }
 
     public event System.Action PuzzleSucceeded;
-    public bool CanAcceptInput => start && !success;
+    public bool CanAcceptInput => start && !success && !IsPaused;
 
     public bool TryCompletePiece(string key, Vector2 dropPosition)
     {
@@ -152,6 +194,7 @@ public class GameManager : MonoBehaviour
     {
         start = false;
         success = false;
+        ResumeGame();
     }
 
     private int GetSpriteDirection(string n)
@@ -213,8 +256,23 @@ public class GameManager : MonoBehaviour
         CreateGround();
     }
 
+    // Release persistent manager references before the scene destroys its puzzle objects.
+    // Selection remains in GameSession so the Stage screen keeps the current topic.
+    public void EndPuzzle()
+    {
+        ResetPuzzleState(); // Resumes time first, then cancels countdown and clears progress.
+        puzzleCamera = null;
+        contents = null;
+        block_parent = null;
+        move_canvas = null;
+        countdownPanel = null;
+        countdownImage = null;
+        countdownSprites = null;
+    }
+
     private void ResetPuzzleState()
     {
+        ResumeGame();
         CancelReadyCountdown();
         start = false;
         success = false;
@@ -328,11 +386,15 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         CancelReadyCountdown();
+        if (_instance != this) return;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        ResumeGame();
     }
 
     public void NextPuzzle()
     {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        ResumeGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

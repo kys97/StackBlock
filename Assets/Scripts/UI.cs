@@ -16,13 +16,15 @@ public class UI : MonoBehaviour
 
     public void ToMain()
     {
-        SceneManager.LoadScene("Main");
+        LoadScene("Main");
     }
 
     public void ToStage()
     {
-        GameManager.Instance.SetScreen(GameManager.Status.Stage);
-        SceneManager.LoadScene("Stage");
+        GameManager manager = GameManager.Instance;
+        manager.EndPuzzle();
+        manager.SetScreen(GameManager.Status.Stage);
+        LoadScene("Stage");
     }
 
     public void NextStage()
@@ -42,7 +44,7 @@ public class UI : MonoBehaviour
     public void GameStart()
     {
         GameManager.Instance.SetScreen(GameManager.Status.Topic);
-        SceneManager.LoadScene("Topic");
+        LoadScene("Topic");
     }
 
     public void GameOver()
@@ -54,12 +56,19 @@ public class UI : MonoBehaviour
     {
         Selection.SetTopic(EventSystem.current.currentSelectedGameObject.name);
         GameManager.Instance.SetScreen(GameManager.Status.Stage);
-        SceneManager.LoadScene("Stage");
+        LoadScene("Stage");
     }
 
     public void BackToMain()
     {
         ToMain();
+    }
+
+    private static void LoadScene(string scene)
+    {
+        GameManager.Instance?.ResumeGame();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(scene);
     }
 
 

@@ -1849,6 +1849,7 @@ MonoBehaviour:
   status: 0
   initialTopic: 0
   initialStage: 0
+  cameraRotationSpeed: 5
   score: 0
   playingTime: 0
   success: 0

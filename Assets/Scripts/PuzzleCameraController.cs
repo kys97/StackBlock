@@ -6,7 +6,8 @@ using UnityEngine;
 public sealed class PuzzleCameraController : MonoBehaviour
 {
     [SerializeField] private Camera controlledCamera;
-    private StageData stageData;
+    private const float BaseRotationSpeedDegreesPerSecond = 90f;
+    private float actualRotationSpeed;
     private GameManager owner;
     private Vector3 orbitCenter;
     private Vector3 initialOffset;
@@ -33,7 +34,6 @@ public sealed class PuzzleCameraController : MonoBehaviour
     public void ApplyInitialPose(StageData data)
     {
         if (data == null) throw new ArgumentNullException(nameof(data));
-        stageData = data;
         controlledCamera.transform.SetPositionAndRotation(data.InitialCameraPosition,
             Quaternion.Euler(data.InitialCameraEulerAngles));
     }
@@ -44,7 +44,8 @@ public sealed class PuzzleCameraController : MonoBehaviour
         if (rotationCenter == null) throw new ArgumentNullException(nameof(rotationCenter));
         ApplyInitialPose(data);
         RotationCenter = rotationCenter;
-        owner = manager;
+        owner = manager != null ? manager : throw new ArgumentNullException(nameof(manager));
+        actualRotationSpeed = BaseRotationSpeedDegreesPerSecond * owner.CameraRotationSpeed;
         if (owner != null) owner.BindCamera(this);
         orbitCenter = rotationCenter.position;
         orbitCenter.y = data.InitialCameraPosition.y;
@@ -92,8 +93,9 @@ public sealed class PuzzleCameraController : MonoBehaviour
 
     private void AdvanceRotation(float deltaTime)
     {
-        if (!IsRotating) return;
-        float step = Mathf.Max(0.01f, stageData.RotationSpeedDegreesPerSecond) * Mathf.Max(0f, deltaTime);
+        if (!IsRotating || owner.IsPaused) return;
+        actualRotationSpeed = BaseRotationSpeedDegreesPerSecond * owner.CameraRotationSpeed;
+        float step = actualRotationSpeed * Mathf.Max(0f, deltaTime);
         currentYaw = Mathf.MoveTowards(currentYaw, targetYaw, step);
         if (currentYaw == targetYaw)
         {

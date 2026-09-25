@@ -91,6 +91,7 @@ public class StageLoad : MonoBehaviour
             if (MoveClouds(-CloudClosedPosition, CloudClosedPosition))
             {
                 owner.SetScreen(GameManager.Status.Puzzle);
+                owner.ResumeGame();
                 SceneManager.LoadScene("Puzzle");
             }
         }
