@@ -12,6 +12,13 @@ using Object = UnityEngine.Object;
 public partial class FullFlowTests
 {
     private StageData testData;
+    private CameraPreferenceScope cameraPreferences;
+
+    [SetUp]
+    public void PreserveCameraPreferences() => cameraPreferences = new CameraPreferenceScope();
+
+    [TearDown]
+    public void RestoreCameraPreferences() => cameraPreferences.Dispose();
 
     [UnityTest]
     public IEnumerator PieceAndCameraReadNonDefaultStageSettings()
@@ -21,8 +28,8 @@ public partial class FullFlowTests
         testData = Object.Instantiate(manager.CurrentStageData);
         var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
         typeof(StageData).GetField("pointsPerPiece", flags).SetValue(testData, 73);
-        typeof(StageData).GetField("snapDistancePixels", flags).SetValue(testData, 40f);
-        TestState.Set(manager, "cameraRotationSpeed", 4);
+        typeof(StageData).GetField("snapDistanceWorld", flags).SetValue(testData, 0.12f);
+        GameSettings.SetCameraRotationSpeedLevel(4);
         typeof(GameSession).GetField("currentStageData", flags).SetValue(manager.Session, testData);
         var cameraController = Camera.main.GetComponent<PuzzleCameraController>();
         cameraController.Initialize(testData, manager.Ground.transform, manager);
@@ -34,15 +41,16 @@ public partial class FullFlowTests
             return block.Direction == manager.CurrentDirection && block.Surface.activeInHierarchy;
         });
         string pieceKey = (string)typeof(BlockUI).GetField("key", flags).GetValue(piece);
-        var pointer = new PointerEventData(EventSystem.current) { position = manager.Puzzle[pieceKey].ScreenPosition + Vector2.right * 60f };
+        Vector3 anchor = manager.Puzzle[pieceKey].Placement.WorldPosition;
+        var pointer = new PointerEventData(EventSystem.current) { position = Camera.main.WorldToScreenPoint(anchor + Vector3.right * .3f) };
         int before = manager.CompletedPieceCount;
         int scoreBefore = manager.Score;
         piece.OnBeginDrag(pointer);
         piece.OnDrag(pointer);
         piece.OnEndDrag(pointer);
-        Assert.AreEqual(before, manager.CompletedPieceCount, "60 pixels must exceed the configured 40-pixel snap range");
+        Assert.AreEqual(before, manager.CompletedPieceCount, "0.3 world units must exceed the configured 0.12-unit snap range");
         yield return null;
-        pointer.position = manager.Puzzle[pieceKey].ScreenPosition + Vector2.right * 20f;
+        pointer.position = Camera.main.WorldToScreenPoint(anchor + Vector3.right * .05f);
         piece.OnBeginDrag(pointer);
         piece.OnDrag(pointer);
         piece.OnEndDrag(pointer);

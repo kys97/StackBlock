@@ -1,0 +1,14 @@
+PASS: Analyze made zero changes to Resources files, including .meta.
+PASS: two same-name candidate materials block the entire operation with zero asset changes.
+PASS: all 101 prefab structures/components/meshes/transforms/slot counts unchanged.
+PASS: existing materials and their meta files, all FBX binaries unchanged.
+PASS: extracted material names/shaders/textures/properties unchanged; no material references lost in any prefab.
+PASS: full FBX meta/importer settings and every scene file unchanged.
+PASS: every planned slot points to its exact planned external asset.
+PASS: unresolved slots retain their original serialized GUID/fileID.
+PASS: prefab YAML outside material slot references is byte-for-byte unchanged.
+PASS: second Analyze and Apply perform zero asset changes.
+PASS: promoted 82 new materials and 84 prefabs; every byte matches Unity-validated outputs. Backup: C:\Users\User\Documents\ChatGPT\StackBlock\Library\StackBlockMaterialBackups\promoted-20260925-125905
+Missing Material: Assets/Resources/Ground/OperaHouse.prefab | OperaHouse | slot 1
+Missing Script: Assets/Scenes/TestScene_YS.unity | GameObject
+PASS: after promotion, every production Assets file matches the Unity-validated copy; zero unexpected changes to baseline Resources/Scenes files.

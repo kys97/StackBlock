@@ -27,7 +27,8 @@ public partial class FullFlowTests
         });
         string key = PieceKey(piece);
         var target = manager.Puzzle[key];
-        var pointer = new PointerEventData(EventSystem.current) { position = target.ScreenPosition + Vector2.right * (manager.CurrentStageData.SnapDistancePixels + 10f) };
+        var pointer = new PointerEventData(EventSystem.current) { position = camera.ControlledCamera.WorldToScreenPoint(
+            target.Placement.WorldPosition + Vector3.right * (manager.CurrentStageData.SnapDistanceWorld + .3f)) };
         piece.OnBeginDrag(pointer); piece.OnDrag(pointer); piece.OnEndDrag(pointer);
         Assert.AreEqual(0, manager.CompletedPieceCount, stage + ": invalid distance");
         Assert.AreEqual(0, manager.Score);
@@ -41,14 +42,14 @@ public partial class FullFlowTests
         Assert.AreEqual(0, manager.CompletedPieceCount, stage + ": wrong direction");
         camera.RotateLeft();
         yield return WaitFor(() => !camera.IsRotating, "Return to starting direction");
-        Assert.That(Vector2.Distance(target.ScreenPosition, camera.ControlledCamera.WorldToScreenPoint(target.Object.transform.position)), Is.LessThan(0.01f));
+        Assert.That(Vector2.Distance(target.ScreenPosition, camera.ControlledCamera.WorldToScreenPoint(target.Placement.WorldPosition)), Is.LessThan(0.01f));
 
         timer.Clock.Start(); timer.Clock.Tick(10f);
         float before = timer.Clock.RemainingTime;
         pointer.position = target.ScreenPosition;
         piece.OnBeginDrag(pointer); piece.OnDrag(pointer); piece.OnEndDrag(pointer);
         piece.OnEndDrag(pointer);
-        Assert.IsFalse(manager.TryCompletePiece(key, pointer.position), "Duplicate completion rejected");
+        Assert.IsFalse(manager.TryCompletePiece(key, manager.Puzzle[key].Placement.WorldPosition), "Duplicate completion rejected");
         timer.SendMessage("Update");
         Assert.AreEqual(1, manager.CompletedPieceCount);
         Assert.AreEqual(manager.CurrentStageData.PointsPerPiece, manager.Score);
@@ -80,7 +81,7 @@ public partial class FullFlowTests
         int score = manager.Score;
         camera.RotateLeft(); camera.RotateRight();
         Assert.AreEqual(direction, camera.CurrentDirection);
-        Assert.IsFalse(manager.TryCompletePiece(key, pointer.position));
+        Assert.IsFalse(manager.TryCompletePiece(key, manager.Puzzle[key].Placement.WorldPosition));
         Assert.AreEqual(score, manager.Score);
 
         int index = (int)manager.Session.Stage;

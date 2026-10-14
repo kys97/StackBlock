@@ -20,5 +20,6 @@ MonoBehaviour:
   initialCameraPosition: {x: 0.22, y: 1.5, z: -3}
   initialCameraEulerAngles: {x: 23, y: 0, z: 0}
   snapDistancePixels: 90
+  snapDistanceWorld: 0.2
   previewImage: {fileID: 21300000, guid: 08a0cdc3b908ea047bb32564fe60602e, type: 3}
   groundPrefab: {fileID: 1168030276121071241, guid: 2e5ec80177894f642a1f223e1beb91e2, type: 3}

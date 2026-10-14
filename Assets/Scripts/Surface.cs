@@ -28,7 +28,7 @@ public class Surface : MonoBehaviour
 
         Camera puzzleCamera = Camera.main;
         if (owner.CurrentDirection == block.Direction && puzzleCamera != null && block.Object != null)
-            block.Position(puzzleCamera.WorldToScreenPoint(block.Object.transform.position));
+            block.Position(puzzleCamera.WorldToScreenPoint(block.Placement.WorldPosition));
         else
             block.Position(new Vector2(-3000, -3000));
     }

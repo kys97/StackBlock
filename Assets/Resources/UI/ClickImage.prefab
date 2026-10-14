@@ -90,6 +90,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   move_prefab: {fileID: 6517390394707079014, guid: 554c3348852b5ae438bd8c46463a30f2, type: 3}
+  validPlacementColor: {r: 1, g: 0.85, b: 0.2, a: 1}
+  hintBlinkSpeed: 4
 --- !u!114 &4368965072189068571
 MonoBehaviour:
   m_ObjectHideFlags: 0

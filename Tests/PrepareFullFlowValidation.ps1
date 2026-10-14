@@ -18,6 +18,13 @@ Copy-Item "$PSScriptRoot/GameSessionTests.cs" "$validationRoot/Assets/Tests" -Fo
 Copy-Item "$PSScriptRoot/PuzzleTimerTests.cs" "$validationRoot/Assets/Tests" -Force
 Copy-Item "$PSScriptRoot/PuzzleCameraTests.cs" "$validationRoot/Assets/Tests" -Force
 Copy-Item "$PSScriptRoot/PauseTests.cs" "$validationRoot/Assets/Tests" -Force
+Copy-Item "$PSScriptRoot/CameraSettingsTests.cs" "$validationRoot/Assets/Tests" -Force
+Copy-Item "$PSScriptRoot/DragPreviewTests.cs" "$validationRoot/Assets/Tests" -Force
+Copy-Item "$PSScriptRoot/PlacementHintTests.cs" "$validationRoot/Assets/Tests" -Force
+Copy-Item "$PSScriptRoot/PlacementAnchorTests.cs" "$validationRoot/Assets/Tests" -Force
+Copy-Item "$PSScriptRoot/PreviewCameraRotationTests.cs" "$validationRoot/Assets/Tests" -Force
+Copy-Item "$PSScriptRoot/PreviewDirectionAndBoundsTests.cs" "$validationRoot/Assets/Tests" -Force
+Copy-Item "$PSScriptRoot/Fixtures" "$validationRoot/Assets/Tests" -Recurse -Force
 Copy-Item "$PSScriptRoot/TestState.cs", "$PSScriptRoot/FinalRegressionTests.cs" "$validationRoot/Assets/Tests" -Force
 '{"name":"FullFlow.Runtime","references":["UnityEngine.UI"]}' | Set-Content "$validationRoot/Assets/Scripts/FullFlow.Runtime.asmdef"
 '{"name":"FullFlow.Tests","references":["FullFlow.Runtime","UnityEngine.UI"],"optionalUnityReferences":["TestAssemblies"]}' | Set-Content "$validationRoot/Assets/Tests/FullFlow.Tests.asmdef"

@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         public GameObject Object { get; }
         public GameObject Surface { get; }
         public Sprite Image { get; }
+        public PuzzlePlacementAnchor Placement { get; }
         public Vector2 ScreenPosition { get; private set; }
         public int Direction { get; }
         public bool IsComplete { get; private set; }
@@ -25,6 +26,9 @@ public class GameManager : MonoBehaviour
             Object = pieceObject;
             Surface = surface;
             Image = image;
+            Placement = pieceObject.GetComponent<PuzzlePlacementAnchor>();
+            if (Placement == null) Placement = pieceObject.AddComponent<PuzzlePlacementAnchor>();
+            Placement.Initialize();
             ScreenPosition = screenPosition;
             Direction = direction;
             IsComplete = isComplete;
@@ -51,9 +55,8 @@ public class GameManager : MonoBehaviour
 
     public StageData CurrentStageData => Session.CurrentStageData;
 
-    [Header("Camera Settings")]
-    [SerializeField, Range(1, 10)] private int cameraRotationSpeed = 3;
-    public int CameraRotationSpeed => Mathf.Clamp(cameraRotationSpeed, 1, 10);
+    // Compatibility accessor: PlayerPrefs owns the value, including its default.
+    public int CameraRotationSpeed => GameSettings.CameraRotationSpeedLevel;
 
     public bool IsPaused { get; private set; }
     public event System.Action<bool> PauseChanged;
@@ -174,13 +177,23 @@ public class GameManager : MonoBehaviour
     public event System.Action PuzzleSucceeded;
     public bool CanAcceptInput => start && !success && !IsPaused;
 
-    public bool TryCompletePiece(string key, Vector2 dropPosition)
+    // Shared by the visual hint and the final drop. This query never changes puzzle state.
+    public bool CanPlacePiece(string key, Vector3 previewAnchorWorld)
     {
         if (!CanAcceptInput || !Puzzle.TryGetValue(key, out Block piece) || piece.IsComplete
-            || !piece.Surface.activeInHierarchy || piece.Direction != CurrentDirection
-            || Vector2.Distance(piece.ScreenPosition, dropPosition) > CurrentStageData.SnapDistancePixels)
+            || !piece.Surface.activeInHierarchy || piece.Direction != CurrentDirection)
             return false;
 
+        Vector3 target = piece.Placement.WorldPosition;
+        float distance = Vector2.Distance(new Vector2(previewAnchorWorld.x, previewAnchorWorld.z),
+            new Vector2(target.x, target.z));
+        return distance <= piece.Placement.GetSnapDistance(CurrentStageData.SnapDistanceWorld);
+    }
+
+    public bool TryCompletePiece(string key, Vector3 previewAnchorWorld)
+    {
+        if (!CanPlacePiece(key, previewAnchorWorld)) return false;
+        Block piece = Puzzle[key];
         piece.Complete(true);
         piece.Object.SetActive(true);
         completedPieceCount++;
@@ -218,7 +231,7 @@ public class GameManager : MonoBehaviour
         {
             if(!(p.Value.IsComplete))
                 if (p.Value.Direction == CurrentDirection)
-                    p.Value.Position(camera.WorldToScreenPoint(p.Value.Object.transform.position));
+                    p.Value.Position(camera.WorldToScreenPoint(p.Value.Placement.WorldPosition));
                 else
                     p.Value.Position(new Vector2(-3000, -3000));
         }
@@ -319,8 +332,9 @@ public class GameManager : MonoBehaviour
         surface.AddComponent<Surface>().SetKey(prefab.name);
         block.SetActive(false);
 
-        Vector2 position = puzzleCamera.WorldToScreenPoint(surface.transform.position);
-        Puzzle.Add(prefab.name, new Block(block, surface, sprite, position, GetSpriteDirection(sprite.name), false));
+        var piece = new Block(block, surface, sprite, Vector2.zero, GetSpriteDirection(sprite.name), false);
+        piece.Position(puzzleCamera.WorldToScreenPoint(piece.Placement.WorldPosition));
+        Puzzle.Add(prefab.name, piece);
     }
 
     private void HideDependentSurfaces()
@@ -329,7 +343,8 @@ public class GameManager : MonoBehaviour
         {
             foreach (Transform child in block.Object.transform)
             {
-                Block dependentBlock = Puzzle[child.name];
+                // Custom anchor/geometry children are not prerequisite piece markers.
+                if (!Puzzle.TryGetValue(child.name, out Block dependentBlock)) continue;
                 dependentBlock.Surface.SetActive(false);
                 dependentBlock.Position(new Vector2(-3000, -3000));
             }

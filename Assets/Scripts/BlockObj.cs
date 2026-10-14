@@ -13,7 +13,8 @@ public class BlockObj : MonoBehaviour
                 for (int i = 0; i < n; i++)
                 {
                     string k = GameManager.Instance.Puzzle[key].Object.transform.GetChild(i).name;
-                    GameManager.Instance.Puzzle[k].Surface.SetActive(true);
+                    if (GameManager.Instance.Puzzle.TryGetValue(k, out GameManager.Block dependent))
+                        dependent.Surface.SetActive(true);
                 }
         }
     }

@@ -25,6 +25,9 @@ public sealed class PuzzleCameraController : MonoBehaviour
     public Transform RotationCenter { get; private set; }
     public Camera ControlledCamera => controlledCamera;
 
+    // Reuse the same canonical F/R/B/L views as placement and camera navigation.
+    public Quaternion GetDirectionRotation(int direction) => directionRotations[direction];
+
     private void Awake()
     {
         if (controlledCamera == null) controlledCamera = GetComponent<Camera>();
@@ -71,6 +74,7 @@ public sealed class PuzzleCameraController : MonoBehaviour
     private void RequestRotation(int directionStep, float angle)
     {
         if (!initialized || !isActiveAndEnabled || IsRotating || (owner != null && !owner.CanAcceptInput)) return;
+        actualRotationSpeed = BaseRotationSpeedDegreesPerSecond * owner.CameraRotationSpeed;
         currentYaw = -90f * CurrentDirection;
         targetYaw = currentYaw + angle;
         CurrentDirection = (CurrentDirection + directionStep + 4) % 4;
@@ -94,7 +98,6 @@ public sealed class PuzzleCameraController : MonoBehaviour
     private void AdvanceRotation(float deltaTime)
     {
         if (!IsRotating || owner.IsPaused) return;
-        actualRotationSpeed = BaseRotationSpeedDegreesPerSecond * owner.CameraRotationSpeed;
         float step = actualRotationSpeed * Mathf.Max(0f, deltaTime);
         currentYaw = Mathf.MoveTowards(currentYaw, targetYaw, step);
         if (currentYaw == targetYaw)

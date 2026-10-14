@@ -75,7 +75,7 @@ public partial class FullFlowTests
             .SetValue(camera, new Func<KeyCode, bool>(_ => false));
         Click("RotateLeft"); Click("RotateRight");
         piece.OnBeginDrag(pointer); piece.OnDrag(pointer); piece.OnEndDrag(pointer);
-        Assert.IsFalse(manager.TryCompletePiece(key, pointer.position));
+        Assert.IsFalse(manager.TryCompletePiece(key, manager.Puzzle[key].Placement.WorldPosition));
         yield return new WaitForSecondsRealtime(0.3f);
         Assert.AreEqual(remaining, timer.Clock.RemainingTime);
         Assert.IsFalse(timer.Clock.IsRunning);
@@ -104,7 +104,7 @@ public partial class FullFlowTests
         timer.Clock.Start(); timer.Clock.Tick(10f);
         var piece = manager.Puzzle.First(p => !p.Value.IsComplete && p.Value.Surface.activeInHierarchy && p.Value.Direction == manager.CurrentDirection);
         float before = timer.Clock.RemainingTime;
-        Assert.IsTrue(manager.TryCompletePiece(piece.Key, piece.Value.ScreenPosition));
+        Assert.IsTrue(manager.TryCompletePiece(piece.Key, piece.Value.Placement.WorldPosition));
         int score = manager.Score;
         manager.PauseGame();
         yield return new WaitForSecondsRealtime(.2f);
@@ -210,7 +210,7 @@ public partial class FullFlowTests
     }
 
     [UnityTest]
-    public IEnumerator ManagerInspectorSpeedControlsActualFrameRotation()
+    public IEnumerator SavedSpeedControlsActualFrameRotation()
     {
         yield return EnterPuzzle("Weather", "Spring");
         var manager = GameManager.Instance;
@@ -218,7 +218,7 @@ public partial class FullFlowTests
         Assert.AreEqual(3,manager.CameraRotationSpeed);
         foreach(int speed in new[]{1,3,5,10})
         {
-            TestState.Set(manager,"cameraRotationSpeed",speed);
+            GameSettings.SetCameraRotationSpeedLevel(speed);
             Quaternion before = Camera.main.transform.rotation;
             float elapsed=0;
             camera.RotateRight();
