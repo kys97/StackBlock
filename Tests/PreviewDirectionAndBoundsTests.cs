@@ -91,7 +91,7 @@ public partial class FullFlowTests
     }
 
     [UnityTest]
-    public IEnumerator EgyptPyramidRejectsBackgroundProjectionAndReturnsToBoard()
+    public IEnumerator EgyptPyramidShowsFloatingPreviewOutsideBoardButRejectsPlacement()
     {
         yield return EnterPuzzle("Structure", "Egypt");
         var manager = GameManager.Instance;
@@ -110,22 +110,24 @@ public partial class FullFlowTests
                 var pointer = new PointerEventData(EventSystem.current)
                     { position = new Vector2(Screen.width * .55f, Screen.height * .8f) };
                 piece.OnBeginDrag(pointer); piece.OnDrag(pointer);
-                Assert.IsTrue(Preview(piece) == null || !Preview(piece).IsVisible, key + " off-board side " + side);
-                Assert.IsTrue(DragImage(piece).enabled);
+                Assert.IsNotNull(Preview(piece), key + " off-board side " + side);
+                Assert.IsTrue(Preview(piece).IsVisible);
+                Assert.IsFalse(DragImage(piece).enabled);
+                Assert.That(Vector2.Distance(camera.WorldToScreenPoint(Preview(piece).VisualAnchorWorldPosition), pointer.position), Is.LessThan(.1f));
                 if (key == "Big_pyramid" && side == 0)
                 {
                     yield return null; yield return null;
-                    string path = System.IO.Path.GetFullPath("../../Logs/egypt-drag-behind-fixed.png");
+                    string path = System.IO.Path.GetFullPath("../../Logs/egypt-floating-preview.png");
                     if (System.IO.File.Exists(path)) System.IO.File.Delete(path);
                     ScreenCapture.CaptureScreenshot(path);
-                    yield return WaitFor(() => System.IO.File.Exists(path), "Off-board fallback capture");
+                    yield return WaitFor(() => System.IO.File.Exists(path), "Off-board 3D preview capture");
                 }
                 pointer.position = camera.WorldToScreenPoint(target.Placement.WorldPosition); piece.OnDrag(pointer);
                 var preview = Preview(piece);
                 Assert.IsNotNull(preview); Assert.IsTrue(preview.IsVisible);
                 Assert.That(Vector3.Distance(preview.AnchorWorldPosition, target.Placement.WorldPosition), Is.LessThan(.001f));
                 pointer.position = new Vector2(Screen.width * .55f, Screen.height * .8f); piece.OnDrag(pointer);
-                Assert.IsFalse(preview.IsVisible); Assert.IsTrue(DragImage(piece).enabled);
+                Assert.IsTrue(preview.IsVisible); Assert.IsFalse(DragImage(piece).enabled);
                 piece.OnEndDrag(pointer);
                 Assert.IsFalse(target.IsComplete); Assert.AreEqual(original, target.Object.transform.localToWorldMatrix);
                 Assert.AreEqual(0, manager.Score);

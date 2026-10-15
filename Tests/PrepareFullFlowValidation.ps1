@@ -24,6 +24,9 @@ Copy-Item "$PSScriptRoot/PlacementHintTests.cs" "$validationRoot/Assets/Tests" -
 Copy-Item "$PSScriptRoot/PlacementAnchorTests.cs" "$validationRoot/Assets/Tests" -Force
 Copy-Item "$PSScriptRoot/PreviewCameraRotationTests.cs" "$validationRoot/Assets/Tests" -Force
 Copy-Item "$PSScriptRoot/PreviewDirectionAndBoundsTests.cs" "$validationRoot/Assets/Tests" -Force
+Copy-Item "$PSScriptRoot/PreviewOcclusionTests.cs" "$validationRoot/Assets/Tests" -Force
+Copy-Item "$PSScriptRoot/PreviewListExitTests.cs" "$validationRoot/Assets/Tests" -Force
+Copy-Item "$PSScriptRoot/WinterSurfaceTests.cs" "$validationRoot/Assets/Tests" -Force
 Copy-Item "$PSScriptRoot/Fixtures" "$validationRoot/Assets/Tests" -Recurse -Force
 Copy-Item "$PSScriptRoot/TestState.cs", "$PSScriptRoot/FinalRegressionTests.cs" "$validationRoot/Assets/Tests" -Force
 '{"name":"FullFlow.Runtime","references":["UnityEngine.UI"]}' | Set-Content "$validationRoot/Assets/Scripts/FullFlow.Runtime.asmdef"

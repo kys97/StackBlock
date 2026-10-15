@@ -18,6 +18,7 @@ public sealed class PuzzleDragPreview : IDisposable
     private readonly Dictionary<Transform, Transform> transforms = new Dictionary<Transform, Transform>();
     private readonly Dictionary<Material, Material> materialCopies = new Dictionary<Material, Material>();
     private readonly List<TintSlot> tintSlots = new List<TintSlot>();
+    private readonly List<Renderer> renderers = new List<Renderer>();
     private float hintPhase;
     private bool hintActive;
 
@@ -33,7 +34,11 @@ public sealed class PuzzleDragPreview : IDisposable
 
     public GameObject Root => root;
     public bool IsVisible => root != null && root.activeSelf;
-    public Vector3 AnchorWorldPosition => root.transform.TransformPoint(sourceAnchorWorld);
+    // Placement remains on the original projection plane, even when the visual
+    // copy is moved toward the camera to avoid an occluder.
+    public Vector3 AnchorWorldPosition => placementAnchorWorld;
+    public Vector3 VisualAnchorWorldPosition => root.transform.TransformPoint(sourceAnchorWorld);
+    public bool HasPlacementPosition { get; private set; }
 
     public PuzzleDragPreview(GameObject source)
     {
@@ -64,6 +69,7 @@ public sealed class PuzzleDragPreview : IDisposable
             Transform copy = CopyTransform(sourceRenderer.transform, root.transform, transforms);
             copy.gameObject.AddComponent<MeshFilter>().sharedMesh = mesh;
             var renderer = copy.gameObject.AddComponent<MeshRenderer>();
+            renderers.Add(renderer);
             Material[] slots = sourceRenderer.sharedMaterials;
             for (int i = 0; i < slots.Length; i++) slots[i] = CopyMaterial(slots[i]);
             renderer.sharedMaterials = slots;
@@ -182,7 +188,8 @@ public sealed class PuzzleDragPreview : IDisposable
     {
         // Keep the ray-projected anchor independent of the preview's visual rotation.
         placementAnchorWorld = hit.point;
-        root.transform.position += hit.point - AnchorWorldPosition;
+        HasPlacementPosition = true;
+        root.transform.position += hit.point - VisualAnchorWorldPosition;
         root.SetActive(true);
     }
 
@@ -204,8 +211,36 @@ public sealed class PuzzleDragPreview : IDisposable
 
     public void Hide()
     {
+        HasPlacementPosition = false;
         ResetPlacementHint();
         if (root != null) root.SetActive(false);
+    }
+
+    public bool TryGetCameraBounds(Camera camera, out Bounds bounds)
+    {
+        bounds = default;
+        bool found = false;
+        foreach (Renderer renderer in renderers)
+        {
+            // Local bounds stay valid while the visual is temporarily hidden.
+            Bounds local = renderer.localBounds;
+            Matrix4x4 matrix = camera.transform.worldToLocalMatrix * renderer.localToWorldMatrix;
+            for (int i = 0; i < 8; i++)
+            {
+                Vector3 sign = new Vector3((i & 1) == 0 ? -1 : 1, (i & 2) == 0 ? -1 : 1, (i & 4) == 0 ? -1 : 1);
+                Vector3 corner = matrix.MultiplyPoint3x4(local.center + Vector3.Scale(local.extents, sign));
+                if (!found) { bounds = new Bounds(corner, Vector3.zero); found = true; }
+                else bounds.Encapsulate(corner);
+            }
+        }
+        return found;
+    }
+
+    public void ApplyVisibilityOffset(Vector3 offset, bool canDisplay)
+    {
+        root.transform.position += placementAnchorWorld + offset - VisualAnchorWorldPosition;
+        root.SetActive(HasPlacementPosition && canDisplay);
+        if (!IsVisible) ResetPlacementHint();
     }
 
     public void Dispose()

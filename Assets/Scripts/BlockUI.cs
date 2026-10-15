@@ -21,8 +21,11 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
     private PuzzleDragRaycaster dragRaycaster;
     private MeshFilter playAreaMesh;
     private PuzzleDragPreview dragPreview;
+    private GameObject[] previewOccluders;
+    private PuzzlePreviewOcclusion previewOcclusion;
     private Vector2 dragPosition;
     private bool positionDirty;
+    private bool hasPlacementHit;
 
     public void SetKey(string pieceKey) => key = pieceKey;
 
@@ -42,6 +45,10 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         foreach (GameManager.Block piece in owner.Puzzle.Values)
             surfaces.Add(piece.Surface);
         previewSurfaces = surfaces.ToArray();
+        var occluders = new List<GameObject> { owner.Ground };
+        foreach (GameManager.Block piece in owner.Puzzle.Values)
+            if (piece.Object != owner.Puzzle[key].Object) occluders.Add(piece.Object);
+        previewOccluders = occluders.ToArray();
         // All stage Ground roots hold the board mesh; their children include the background slab.
         playAreaMesh = owner.Ground.GetComponent<MeshFilter>();
         Vector2 size = owner.Puzzle[key].Image.bounds.size;
@@ -78,7 +85,7 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         if (owner == null || !owner.CanAcceptInput) { ClearDrag(); return; }
         RecordPointer(eventData.position);
         UpdateDragVisual(0f);
-        bool placed = dragPreview != null && dragPreview.IsVisible
+        bool placed = hasPlacementHit && dragPreview != null && dragPreview.IsVisible
             && owner.TryCompletePiece(key, dragPreview.AnchorWorldPosition);
         ClearDrag();
         if (placed) Destroy(gameObject);
@@ -90,6 +97,8 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         dragPreview = null;
         dragRaycaster?.Dispose();
         dragRaycaster = null;
+        previewOcclusion?.Dispose();
+        previewOcclusion = null;
         if (dragImage != null)
         {
             dragImage.gameObject.SetActive(false);
@@ -97,6 +106,7 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         }
         dragImage = null;
         positionDirty = false;
+        hasPlacementHit = false;
     }
 
     private void LateUpdate()
@@ -114,12 +124,20 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         bool overList = RectTransformUtility.RectangleContainsScreenPoint(pieceListArea, dragPosition, uiCamera);
         if (overList)
         {
+            hasPlacementHit = false;
             dragPreview?.Hide();
             dragImage.enabled = true;
         }
-        else if (positionDirty && (cameraController == null || !cameraController.IsRotating))
+        else if (positionDirty && (cameraController == null || !cameraController.IsRotating
+            || dragPreview == null || !dragPreview.HasPlacementPosition))
         {
-            if (TryGetPreviewHit(out RaycastHit hit))
+            // Leaving the list must show a preview even without a board hit,
+            // including the first exit during a camera turn. Only board hits
+            // can participate in placement or hint evaluation.
+            RaycastHit hit = default;
+            hasPlacementHit = (cameraController == null || !cameraController.IsRotating)
+                && TryGetPreviewHit(out hit);
+            if (hasPlacementHit || TryGetFloatingPreviewHit(out hit))
             {
                 if (dragPreview == null)
                 {
@@ -144,7 +162,16 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         {
             // Outside the positionDirty / IsRotating gate: only position projection freezes.
             dragPreview.UpdateCameraRelativeRotation(puzzleCamera.transform.rotation);
-            dragPreview.UpdatePlacementHint(dragPreview.IsVisible
+            if (dragPreview.HasPlacementPosition)
+            {
+                if (previewOcclusion == null) previewOcclusion = new PuzzlePreviewOcclusion(previewOccluders);
+                Vector3 offset = Vector3.zero;
+                bool canDisplay = dragPreview.TryGetCameraBounds(puzzleCamera, out Bounds bounds)
+                    && previewOcclusion.TryGetOffset(puzzleCamera, bounds, dragPreview.AnchorWorldPosition, out offset);
+                dragPreview.ApplyVisibilityOffset(offset, canDisplay);
+                dragImage.enabled = !canDisplay;
+            }
+            dragPreview.UpdatePlacementHint(hasPlacementHit && dragPreview.IsVisible
                 && owner.CanPlacePiece(key, dragPreview.AnchorWorldPosition),
                 validPlacementColor, hintBlinkSpeed, deltaTime);
         }
@@ -164,6 +191,20 @@ public class BlockUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         if (dragRaycaster == null) dragRaycaster = new PuzzleDragRaycaster(previewSurfaces, playAreaMesh);
         return dragRaycaster.Raycast(puzzleCamera.ScreenPointToRay(dragPosition), puzzleCamera.farClipPlane,
             out closest, owner.Puzzle[key].Placement.WorldPosition.y);
+    }
+
+    private bool TryGetFloatingPreviewHit(out RaycastHit hit)
+    {
+        hit = default;
+        if (puzzleCamera == null || !puzzleCamera.pixelRect.Contains(dragPosition)) return false;
+        // A camera-facing plane at the piece's usual depth gives the preview
+        // a finite world position outside the board, without changing its scale
+        // or projecting a nearly horizontal ray far behind the map.
+        var plane = new Plane(puzzleCamera.transform.forward, owner.Puzzle[key].Placement.WorldPosition);
+        Ray ray = puzzleCamera.ScreenPointToRay(dragPosition);
+        if (!plane.Raycast(ray, out float distance) || distance > puzzleCamera.farClipPlane) return false;
+        hit = new RaycastHit { point = ray.GetPoint(distance), distance = distance };
+        return true;
     }
 
     private void OnPauseChanged(bool paused)
